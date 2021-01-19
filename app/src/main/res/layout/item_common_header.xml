@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingTop="@dimen/width_10dp"
+    android:paddingBottom="@dimen/width_10dp">
+    <TextView
+        android:id="@+id/common_header"
+        style="@style/common_text_view"/>
+</LinearLayout>

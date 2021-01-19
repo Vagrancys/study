@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="dialog_animation_style">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
+    </style>
+
+    <!--公共文本视图-->
+    <style name="common_text_view">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/size_18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!--公共编辑视图-->
+    <style name="common_edit_view">
+        <item name="android:padding">@dimen/width_5dp</item>
+        <item name="android:gravity">start</item>
+        <item name="android:background">@drawable/common_edit_shape</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:inputType">text</item>
+        <item name="android:minHeight">@dimen/width_100dp</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:hint">@string/knowledge_hint</item>
+        <item name="android:textSize">@dimen/size_18sp</item>
+    </style>
+
+    <style name="dialog_linear_layout">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="dialog_text_view">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/size_18sp</item>
+        <item name="android:layout_marginTop">@dimen/width_5dp</item>
+    </style>
+    <style name="dialog_image_view">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+     <!--弹窗样式-->
+    <style name="Nice_dialog_style" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/dialog_animation_style</item>
+    </style>
+</resources>

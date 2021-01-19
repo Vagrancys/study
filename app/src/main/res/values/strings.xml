@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">学习</string>
+    <string name="knowledge_hint">不学习一下吗?</string>
+    <string name="knowledge_save_empty">保存时,知识不能没有任何编辑!</string>
+    <string name="knowledge_save_success">保存成功了,您可以继续编辑更多的知识!</string>
+    <string name="knowledge_save_fail">保存失败了,n您可以卸载掉这个垃圾软件了!</string>
+    <string name="knowledge_delete_success">删除成功了,您可以继续增加知识了!</string>
+    <string name="knowledge_delete_fail">删除失败了,这一定是我的错,我改!</string>
+    <string name="knowledge_examine_title">查看所有知识</string>
+    <string name="knowledge_update_title">完善已有的知识</string>
+    <string name="function_no_open">功能还没有开发,可以拷贝下源码,自己超越作者!</string>
+    <string name="dialog_examine_title">功能表</string>
+    <string name="dialog_update_hint">更新</string>
+    <string name="dialog_delete_hint">删除</string>
+    <string name="dialog_look_hint">查看</string>
+    <string name="dialog_advanced_hint">进阶</string>
+    <string name="dialog_tidy_hint">整理</string>
+    <string name="dialog_insert_hint">添加</string>
+    <string name="dialog_mileage_hint">里程</string>
+    <string name="knowledge_query_error">查询失败,这一定是我的错,说明作者遇到未知了!</string>
+    <string name="knowledge_query_empty">查询不到说明?你还不快去增加一些知识!</string>
+    <string name="knowledge_look_title">查看具体知识</string>
+    <string name="knowledge_update_empty">如果保存空知识,你应该点击返回键!</string>
+    <string name="knowledge_update_equals">不想修改知识,不,你想修改!</string>
+    <string name="knowledge_update_success">保存成功了,我想您应该是要冲击知识进阶吧!</string>
+    <string name="knowledge_update_fail">保存失败了,再试一次吧,不行在卸载!</string>
+    <string name="knowledge_insert_hint">试着分一下类吧!</string>
+    <string name="knowledge_insert_success">既然成功了,就再成功一次吧!</string>
+    <string name="knowledge_insert_fail">没事.软件犯贱了,卸载就能解决!</string>
+    <string name="common_header_text">到头了!</string>
+    <string name="common_footer_text">到底了!</string>
+    <string name="common_empty_text">是时候加些知识了!</string>
+    <string name="knowledge_tidy_title">整理知识吧!</string>
+    <string name="common_text">这是测试用的文本,没代表什么,真的!</string>
+    <string name="dialog_insert_title">增加点什么?</string>
+    <string name="dialog_update_title">要修改了吗?</string>
+    <string name="common_cancel_text">取消</string>
+    <string name="common_determine_text">确定</string>
+
+    <!--框架输出-->
+    <string name="setting_presenter_null">presenter未初始化!</string>
+    <string name="setting_view_null">view未初始化!</string>
+</resources>
