@@ -43,7 +43,8 @@ import butterknife.OnClick;
  * Email:18050829067@163.com
  * Description: 知识查看
  */
-public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,KnowledgeView<Knowledge>> implements KnowLedgeExamineDialog.OnDialogClickListener{
+public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,KnowledgeView<Knowledge>>
+        implements KnowLedgeExamineDialog.OnDialogClickListener{
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
     @BindView(R.id.common_operate)

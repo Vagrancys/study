@@ -112,13 +112,22 @@ public class KnowLedgeRequest {
      * @return
      */
     public boolean deleteKnowledgeClass(KnowledgeClass knowledgeClass) {
-        List<Knowledge> knowledges = knowledgeClass.getKnowledgeList();
-        if(knowledges.size() >0){
-            for (Knowledge knowledge :knowledges){
+        List<Knowledge> knowLedge = knowledgeClass.getKnowledgeList();
+        if(knowLedge.size() >0){
+            for (Knowledge knowledge :knowLedge){
                 knowledge.setKnowledge_class(0);
                 knowledgeUtils.update(knowledge);
             }
         }
         return knowledgeClassUtils.delete(knowledgeClass);
+    }
+
+    /**
+     * 更新知识分类
+     * @param knowledgeClass
+     * @return
+     */
+    public boolean updateKnowledgeClass(KnowledgeClass knowledgeClass) {
+        return knowledgeClassUtils.update(knowledgeClass);
     }
 }

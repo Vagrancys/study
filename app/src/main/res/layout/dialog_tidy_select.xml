@@ -20,23 +20,18 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/common_close_normal"/>
-    <LinearLayout
-        android:id="@+id/linear_base"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/dialog_insert_edit"
+        style="@style/common_edit_view"
         android:layout_height="wrap_content"
         android:layout_below="@id/dialog_close"
         android:layout_marginTop="@dimen/width_10dp"
         android:layout_marginBottom="@dimen/width_10dp"
-        android:orientation="vertical">
-        <EditText
-            android:id="@+id/dialog_insert_edit"
-            style="@style/common_edit_view"
-            android:hint="@string/knowledge_insert_hint"
-            android:minHeight="@dimen/width_44dp"
-            android:gravity="center_vertical"/>
-    </LinearLayout>
+        android:hint="@string/knowledge_insert_hint"
+        android:minHeight="@dimen/width_44dp"
+        android:gravity="center_vertical"/>
     <LinearLayout
-        android:layout_below="@id/linear_base"
+        android:layout_below="@id/dialog_insert_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView

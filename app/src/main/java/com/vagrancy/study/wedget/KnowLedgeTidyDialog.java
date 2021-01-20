@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.vagrancy.study.R;
@@ -26,7 +28,7 @@ public class KnowLedgeTidyDialog extends AlertDialog{
     EditText dialogInsertEdit;
 
     public KnowLedgeTidyDialog(Context context) {
-        super(context);
+        super(context,R.style.knowledge_class_dialog);
     }
 
     protected KnowLedgeTidyDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
@@ -39,6 +41,8 @@ public class KnowLedgeTidyDialog extends AlertDialog{
         getWindow().setWindowAnimations(R.style.dialog_animation_style);
         setContentView(R.layout.dialog_tidy_select);
         ButterKnife.bind(this);
+        setCancelable(false);
+        setCanceledOnTouchOutside(false);
     }
 
     private OnDialogClickListener onDialogClickListener;

@@ -117,7 +117,7 @@ public class KnowledgePresenter extends BasePresenter<Knowledge,KnowledgeView<Kn
         }else if(knowledgeClasses.size() <= 0){
             mView.onFail(R.string.knowledge_query_empty);
         }else {
-            //getView().queryKnowledgeClass(knowledgeClasses);
+            mView.queryKnowledgeClass(knowledgeClasses);
             initChildKnowledge(knowledgeClasses);
         }
         mView.onFinish();
@@ -148,6 +148,7 @@ public class KnowledgePresenter extends BasePresenter<Knowledge,KnowledgeView<Kn
         }else{
             mView.onFail(R.string.knowledge_insert_fail);
         }
+        mView.onFinish();
     }
 
     /**
@@ -161,5 +162,21 @@ public class KnowledgePresenter extends BasePresenter<Knowledge,KnowledgeView<Kn
         }else{
             mView.onFail(R.string.knowledge_delete_fail);
         }
+        mView.onFinish();
     }
+
+    /**
+     * 更新知识分类
+     * @param knowledgeClass
+     */
+    public void updateKnowledgeClass(KnowledgeClass knowledgeClass) {
+        boolean result = knowLedgeRequest.updateKnowledgeClass(knowledgeClass);
+        if(result){
+            mView.onSuccess(R.string.knowledge_update_success);
+        }else{
+            mView.onFail(R.string.knowledge_update_fail);
+        }
+        mView.onFinish();
+    }
+
 }

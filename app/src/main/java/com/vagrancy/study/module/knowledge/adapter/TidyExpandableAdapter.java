@@ -47,6 +47,9 @@ public class TidyExpandableAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
+        if(childrenData.size() <=0){
+            return 0;
+        }
         return childrenData.get(groupPosition).size();
     }
 
@@ -83,10 +86,10 @@ public class TidyExpandableAdapter extends BaseExpandableListAdapter {
         KnowledgeClass knowledgeClass = groupData.get(groupPosition);
         groupViewHolder.groupTitle = convertView.findViewById(R.id.group_title);
         groupViewHolder.groupTitle.setText(knowledgeClass.getKnowledge_class_name());
-        groupViewHolder.groupCount = convertView.findViewById(R.id.group_content);
-        groupViewHolder.groupCount.setText(knowledgeClass.getKnowledge_class_count());
+        groupViewHolder.groupCount = convertView.findViewById(R.id.group_count);
+        groupViewHolder.groupCount.setText(String.valueOf(knowledgeClass.getKnowledge_class_count()));
         groupViewHolder.groupQuality = convertView.findViewById(R.id.group_quality);
-        groupViewHolder.groupQuality.setText(knowledgeClass.getKnowledge_class_quality());
+        groupViewHolder.groupQuality.setText(String.valueOf(knowledgeClass.getKnowledge_class_quality()));
         return convertView;
     }
 

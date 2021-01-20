@@ -1,8 +1,13 @@
 package com.vagrancy.study.module.knowledge.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -41,6 +46,7 @@ import butterknife.OnClick;
  * Description: 知识分类活动
  */
 public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, KnowledgeView<List<Knowledge>>>{
+    private static String TAG = "knowledgeTidyActivity";
     @BindView(R.id.expandable)
     ExpandableListView expandable;
     @BindView(R.id.common_operate)
@@ -79,7 +85,9 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
             @Override
             public void onSuccess(int message) {
                 ToastUtils.showToast(getBaseContext(),message);
-                mAdapter.notifyDataSetChanged();
+                mDialog.dismiss();
+                mSelectDialog.dismiss();
+                mPresenter.queryGroupAll();
             }
 
             @Override
@@ -90,17 +98,19 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
             @Override
             public void onFinish() {
                 swipeRefreshLayout.setRefreshing(false);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void queryChildKnowLedge(List<List<Knowledge>> knowledge) {
+            public void queryChildKnowLedge(List<List<Knowledge>> knowLedge) {
                 knowledge.clear();
-                knowledge.addAll(knowledge);
-                mAdapter.notifyDataSetChanged();
+                knowledge.addAll(knowLedge);
             }
             
             @Override
             public void queryKnowledgeClass(List<KnowledgeClass> knowledge) {
+                knowledgeClasses.clear();
+                Log.e(TAG,"size ="+knowledge.size());
                 knowledgeClasses.addAll(knowledge);
             }
         };
@@ -110,7 +120,6 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
     public void initToolbar() {
         commonOperate.setImageResource(R.drawable.common_examine_normal);
         commonTitle.setText(getResources().getText(R.string.knowledge_tidy_title));
-
     }
 
     @OnClick({R.id.common_back,R.id.common_operate})
@@ -120,7 +129,9 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
                 finish();
                 break;
             case R.id.common_operate:
-                Toast.makeText(getBaseContext(),R.string.function_no_open,Toast.LENGTH_SHORT).show();
+                mDialog.show();
+                mDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                mDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
                 break;
         }
     }
@@ -140,7 +151,8 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
         expandable.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                ToastUtils.showToast(getBaseContext(),R.string.common_text);
+                mSelectDialog.setPosition(groupPosition);
+                mSelectDialog.show();
                 return false;
             }
         });
@@ -152,10 +164,11 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
             }
         });
         //整理添加
-        mDialog = new KnowLedgeTidyDialog(getBaseContext());
+        mDialog = new KnowLedgeTidyDialog(this);
         mDialog.setOnDialogClickListener(new TidyDialogImpl());
+
         //类型操作
-        mSelectDialog = new KnowLedgeSelectDialog(getBaseContext());
+        mSelectDialog = new KnowLedgeSelectDialog(this);
         mSelectDialog.setOnDialogClickListener(new SelectDialogImpl());
     }
 
@@ -177,6 +190,9 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
         public void onDelete(int position) {
             //删除知识分类
             mPresenter.deleteKnowledgeClass(knowledgeClasses.get(position));
+            if(knowledgeClasses.size() ==1){
+                knowledgeClasses.clear();
+            }
         }
 
         @Override
@@ -187,7 +203,8 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
                     .setConvertListener(new ViewConvertListener() {
                         @Override
                         protected void convertView(NiceViewHolder holder, BaseNiceDialog dialog) {
-
+                            EditText dialogEdit = holder.getView(R.id.dialog_update_edit);
+                            dialogEdit.setText(knowledgeClasses.get(mPosition).getKnowledge_class_name());
                             TextView cancelText = holder.getView(R.id.dialog_cancel);
                             cancelText.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -200,7 +217,7 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
                             determineText.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    EditText dialogEdit = holder.getView(R.id.dialog_update_edit);
+
                                     String classTitle = dialogEdit.getText().toString();
                                     if(TextUtils.isEmpty(classTitle)){
                                         ToastUtils.showToast(getBaseContext(),R.string.knowledge_update_empty);
@@ -210,6 +227,10 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
                                         ToastUtils.showToast(getBaseContext(),R.string.knowledge_update_equals);
                                         return;
                                     }
+                                    KnowledgeClass knowledgeClass = knowledgeClasses.get(mPosition);
+                                    knowledgeClass.setKnowledge_class_name(classTitle);
+                                    mPresenter.updateKnowledgeClass(knowledgeClass);
+                                    dialog.dismiss();
                                 }
                             });
                             ImageView closeImage = holder.getView(R.id.dialog_close);

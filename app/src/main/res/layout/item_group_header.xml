@@ -18,13 +18,13 @@
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/group_quality"
         android:layout_toLeftOf="@+id/group_quality"
-        android:padding="@dimen/width_5dp"
+        android:paddingRight="@dimen/width_5dp"
         app:drawableLeftCompat="@drawable/common_count_normal" />
     <TextView
         android:id="@+id/group_quality"
         style="@style/common_text_view"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:padding="@dimen/width_5dp"
+        android:paddingRight="@dimen/width_5dp"
         app:drawableLeftCompat="@drawable/common_quality_normal" />
 </RelativeLayout>

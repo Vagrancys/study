@@ -21,7 +21,8 @@
         <activity android:name=".module.knowledge.activity.KnowLedgeExamineActivity"/>
         <activity android:name=".module.knowledge.activity.KnowLedgeLookActivity"/>
         <activity android:name=".module.knowledge.activity.KnowLedgeUpdateActivity"/>
-        <activity android:name=".module.knowledge.activity.KnowledgeTidyActivity"/>
+        <activity android:name=".module.knowledge.activity.KnowledgeTidyActivity"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
