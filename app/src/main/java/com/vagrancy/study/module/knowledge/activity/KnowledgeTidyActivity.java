@@ -34,6 +34,7 @@ import com.vagrancy.study.wedget.ViewConvertListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -206,32 +207,24 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
                             EditText dialogEdit = holder.getView(R.id.dialog_update_edit);
                             dialogEdit.setText(knowledgeClasses.get(mPosition).getKnowledge_class_name());
                             TextView cancelText = holder.getView(R.id.dialog_cancel);
-                            cancelText.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                }
-                            });
+                            cancelText.setOnClickListener(v -> dialog.dismiss());
 
                             TextView determineText = holder.getView(R.id.dialog_determine);
-                            determineText.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
+                            determineText.setOnClickListener(v -> {
 
-                                    String classTitle = dialogEdit.getText().toString();
-                                    if(TextUtils.isEmpty(classTitle)){
-                                        ToastUtils.showToast(getBaseContext(),R.string.knowledge_update_empty);
-                                        return;
-                                    }
-                                    if(classTitle.equals(knowledgeClasses.get(mPosition).getKnowledge_class_name())){
-                                        ToastUtils.showToast(getBaseContext(),R.string.knowledge_update_equals);
-                                        return;
-                                    }
-                                    KnowledgeClass knowledgeClass = knowledgeClasses.get(mPosition);
-                                    knowledgeClass.setKnowledge_class_name(classTitle);
-                                    mPresenter.updateKnowledgeClass(knowledgeClass);
-                                    dialog.dismiss();
+                                String classTitle = dialogEdit.getText().toString();
+                                if(TextUtils.isEmpty(classTitle)){
+                                    ToastUtils.showToast(getBaseContext(),R.string.knowledge_update_empty);
+                                    return;
                                 }
+                                if(classTitle.equals(knowledgeClasses.get(mPosition).getKnowledge_class_name())){
+                                    ToastUtils.showToast(getBaseContext(),R.string.knowledge_update_equals);
+                                    return;
+                                }
+                                KnowledgeClass knowledgeClass = knowledgeClasses.get(mPosition);
+                                knowledgeClass.setKnowledge_class_name(classTitle);
+                                mPresenter.updateKnowledgeClass(knowledgeClass);
+                                dialog.dismiss();
                             });
                             ImageView closeImage = holder.getView(R.id.dialog_close);
                             closeImage.setOnClickListener(v->{
@@ -246,16 +239,30 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
         @Override
         public void onLook(int position) {
             //查看知识分类
-        }
-
-        @Override
-        public void onTidy() {
-            //整理知识
+            NiceDialog.init().setLayoutId(R.layout.dialog_knowledge_class_details)
+                    .setConvertListener(new ViewConvertListener() {
+                        @Override
+                        protected void convertView(NiceViewHolder holder, BaseNiceDialog dialog) {
+                            KnowledgeClass knowledgeClass = knowledgeClasses.get(position);
+                            TextView dialogTitle = holder.getView(R.id.dialog_title);
+                            dialogTitle.setText(knowledgeClass.getKnowledge_class_name());
+                            TextView dialogCount = holder.getView(R.id.dialog_count);
+                            dialogCount.setText(String.format(Locale.CHINA,"%d个", knowledgeClass.getKnowledge_class_count()));
+                            TextView dialogQuality = holder.getView(R.id.dialog_quality);
+                            dialogQuality.setText(String.format(Locale.CHINA,"%d分", knowledgeClass.getKnowledge_class_quality()));
+                            ImageView dialogClose = holder.getView(R.id.dialog_close);
+                            dialogClose.setOnClickListener(v->{
+                                dialog.dismiss();
+                            });
+                        }
+                    })
+                    .show(getSupportFragmentManager());
         }
 
         @Override
         public void onInsert(int position) {
             //添加知识
+
         }
     }
 

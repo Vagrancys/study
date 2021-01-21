@@ -1,14 +1,10 @@
 package com.vagrancy.study.module.knowledge.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,19 +12,17 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.vagrancy.study.R;
 import com.vagrancy.study.common.base.BaseActivity;
-import com.vagrancy.study.common.base.BaseModelView;
-import com.vagrancy.study.common.base.BasePresenter;
-import com.vagrancy.study.common.base.BaseViewAdapter;
-import com.vagrancy.study.common.base.IBaseView;
+import com.vagrancy.study.common.base.BaseNiceDialog;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.module.knowledge.adapter.KnowLedgeExamineAdapter;
 import com.vagrancy.study.module.knowledge.view.KnowledgeView;
 import com.vagrancy.study.presenter.knowledge.KnowledgePresenter;
-import com.vagrancy.study.utils.CommonDaoUtils;
 import com.vagrancy.study.utils.ConstantsUtils;
-import com.vagrancy.study.utils.DaoUtilsStore;
 import com.vagrancy.study.utils.ToastUtils;
 import com.vagrancy.study.wedget.KnowLedgeExamineDialog;
+import com.vagrancy.study.wedget.NiceDialog;
+import com.vagrancy.study.wedget.NiceViewHolder;
+import com.vagrancy.study.wedget.ViewConvertListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,7 +155,22 @@ public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,Kn
                 finish();
                 break;
             case R.id.common_operate:
-                Toast.makeText(getBaseContext(),R.string.function_no_open,Toast.LENGTH_SHORT).show();
+                NiceDialog.init().setLayoutId(R.layout.dialog_operate_select)
+                        .setConvertListener(new ViewConvertListener() {
+                            @Override
+                            protected void convertView(NiceViewHolder holder, BaseNiceDialog dialog) {
+                                LinearLayout dialogTidy = holder.getView(R.id.dialog_tidy);
+                                dialogTidy.setOnClickListener(v->{
+                                    openActivity(KnowledgeTidyActivity.class);
+                                    dialog.dismiss();
+                                });
+                                ImageView dialogClose = holder.getView(R.id.dialog_close);
+                                dialogClose.setOnClickListener(v->{
+                                    dialog.dismiss();
+                                });
+                            }
+                        })
+                        .show(getSupportFragmentManager());
                 break;
         }
     }
@@ -185,11 +194,6 @@ public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,Kn
     @Override
     public void onLook(int position) {
         openActivity(KnowLedgeLookActivity.class, ConstantsUtils.KNOWLEDGE_ID,knowledge.get(position).get_id());
-    }
-
-    @Override
-    public void onTidy() {
-        openActivity(KnowledgeTidyActivity.class);
     }
 
     @Override

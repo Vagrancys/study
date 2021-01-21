@@ -51,7 +51,7 @@ public class KnowLedgeExamineDialog extends AlertDialog{
     }
 
     @OnClick({R.id.dialog_look,R.id.dialog_update,R.id.dialog_close,R.id.dialog_delete,
-            R.id.dialog_advanced,R.id.dialog_tidy,R.id.dialog_mileage})
+            R.id.dialog_advanced,R.id.dialog_mileage})
     public void onClicked(View view){
         switch (view.getId()){
             case R.id.dialog_close:
@@ -79,11 +79,6 @@ public class KnowLedgeExamineDialog extends AlertDialog{
                     onDialogClickListener.onAdvanced(mPosition);
                 }
                 break;
-            case R.id.dialog_tidy:
-                if(onDialogClickListener != null){
-                    onDialogClickListener.onTidy();
-                }
-                break;
             case R.id.dialog_mileage:
                 if(onDialogClickListener != null){
                     onDialogClickListener.onMileage(mPosition);
@@ -98,7 +93,6 @@ public class KnowLedgeExamineDialog extends AlertDialog{
         void onDelete(int position);
         void onUpdate(int position);
         void onLook(int position);
-        void onTidy();
         void onAdvanced(int position);
         void onMileage(int position);
     }

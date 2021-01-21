@@ -4,11 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.vagrancy.study.R;
-import com.vagrancy.study.common.base.BaseViewAdapter;
+import com.vagrancy.study.common.base.IViewAdapter;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
 
 import java.text.SimpleDateFormat;
@@ -25,7 +22,7 @@ import butterknife.BindView;
  * Email:18050829067@163.com
  * Description: 知识查看适配器
  */
-public class KnowLedgeExamineAdapter extends BaseViewAdapter<Knowledge, KnowLedgeExamineAdapter.KnowLedgeExamineViewHolder> {
+public class KnowLedgeExamineAdapter extends IViewAdapter<Knowledge, KnowLedgeExamineAdapter.KnowLedgeExamineViewHolder> {
     private SimpleDateFormat simpleDateFormat;
     public KnowLedgeExamineAdapter(Context context, List<Knowledge> list) {
         super(context,R.layout.knowledge_examine_item,R.layout.item_common_footer,list);
@@ -77,7 +74,7 @@ public class KnowLedgeExamineAdapter extends BaseViewAdapter<Knowledge, KnowLedg
         emptyHolder.commonEmpty.setText(R.string.common_empty_text);
     }
 
-    public static class KnowLedgeExamineViewHolder extends BaseViewAdapter.CommonViewHolder{
+    public static class KnowLedgeExamineViewHolder extends IViewAdapter.CommonViewHolder{
         @BindView(R.id.examine_number)
         TextView examineNumber;
         @BindView(R.id.examine_content)
@@ -89,7 +86,7 @@ public class KnowLedgeExamineAdapter extends BaseViewAdapter<Knowledge, KnowLedg
         }
     }
 
-    public static class KnowledgeExamineHeadHolder extends BaseViewAdapter.CommonViewHolder{
+    public static class KnowledgeExamineHeadHolder extends IViewAdapter.CommonViewHolder{
         @BindView(R.id.common_header)
         TextView commonHeader;
         public KnowledgeExamineHeadHolder(View view){
@@ -97,7 +94,7 @@ public class KnowLedgeExamineAdapter extends BaseViewAdapter<Knowledge, KnowLedg
         }
     }
 
-    public static class KnowledgeExamineFootHolder extends BaseViewAdapter.CommonViewHolder{
+    public static class KnowledgeExamineFootHolder extends IViewAdapter.CommonViewHolder{
         @BindView(R.id.common_footer)
         TextView commonFooter;
         public KnowledgeExamineFootHolder(View view){
@@ -105,7 +102,7 @@ public class KnowLedgeExamineAdapter extends BaseViewAdapter<Knowledge, KnowLedg
         }
     }
 
-    public static class KnowledgeExamineEmptyHolder extends BaseViewAdapter.CommonViewHolder{
+    public static class KnowledgeExamineEmptyHolder extends IViewAdapter.CommonViewHolder{
         @BindView(R.id.common_empty)
         TextView commonEmpty;
         public KnowledgeExamineEmptyHolder(View view){

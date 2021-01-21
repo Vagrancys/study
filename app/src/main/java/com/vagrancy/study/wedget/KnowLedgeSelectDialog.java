@@ -70,11 +70,6 @@ public class KnowLedgeSelectDialog extends AlertDialog{
                     onDialogClickListener.onUpdate(mPosition);
                 }
                 break;
-            case R.id.dialog_tidy:
-                if(onDialogClickListener != null){
-                    onDialogClickListener.onTidy();
-                }
-                break;
             case R.id.dialog_insert:
                 if(onDialogClickListener != null){
                     onDialogClickListener.onInsert(mPosition);
@@ -89,7 +84,6 @@ public class KnowLedgeSelectDialog extends AlertDialog{
         void onDelete(int position);
         void onUpdate(int position);
         void onLook(int position);
-        void onTidy();
         void onInsert(int position);
     }
 }
