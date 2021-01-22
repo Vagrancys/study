@@ -25,6 +25,7 @@ import com.vagrancy.study.model.knowledge.entity.KnowledgeClass;
 import com.vagrancy.study.module.knowledge.adapter.TidyExpandableAdapter;
 import com.vagrancy.study.module.knowledge.view.KnowledgeView;
 import com.vagrancy.study.presenter.knowledge.KnowledgePresenter;
+import com.vagrancy.study.utils.ConstantsUtils;
 import com.vagrancy.study.utils.ToastUtils;
 import com.vagrancy.study.wedget.KnowLedgeSelectDialog;
 import com.vagrancy.study.wedget.KnowLedgeTidyDialog;
@@ -140,29 +141,20 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
     @Override
     public void initView(Bundle save) {
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.white));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                getPresenter().queryGroupAll();
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+            getPresenter().queryGroupAll();
         });
         mAdapter = new TidyExpandableAdapter(knowledgeClasses,knowledge);
         expandable.setAdapter(mAdapter);
-        expandable.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                mSelectDialog.setPosition(groupPosition);
-                mSelectDialog.show();
-                return false;
-            }
+        expandable.setOnGroupClickListener((parent, v, groupPosition, id) -> {
+            mSelectDialog.setPosition(groupPosition);
+            mSelectDialog.show();
+            return false;
         });
-        expandable.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                ToastUtils.showToast(getBaseContext(),R.string.common_text);
-                return false;
-            }
+        expandable.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+            ToastUtils.showToast(getBaseContext(),R.string.common_text);
+            return false;
         });
         //整理添加
         mDialog = new KnowLedgeTidyDialog(this);
@@ -194,6 +186,7 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
             if(knowledgeClasses.size() ==1){
                 knowledgeClasses.clear();
             }
+            mSelectDialog.dismiss();
         }
 
         @Override
@@ -211,7 +204,6 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
 
                             TextView determineText = holder.getView(R.id.dialog_determine);
                             determineText.setOnClickListener(v -> {
-
                                 String classTitle = dialogEdit.getText().toString();
                                 if(TextUtils.isEmpty(classTitle)){
                                     ToastUtils.showToast(getBaseContext(),R.string.knowledge_update_empty);
@@ -234,6 +226,7 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
                     })
                     .setDimAmount(0.6f)
                     .show(getSupportFragmentManager());
+            mSelectDialog.dismiss();
         }
 
         @Override
@@ -257,12 +250,16 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
                         }
                     })
                     .show(getSupportFragmentManager());
+            mSelectDialog.dismiss();
         }
 
         @Override
         public void onInsert(int position) {
             //添加知识
-
+            openActivity(KnowledgeInsertChildActivity.class,
+                    ConstantsUtils.KNOWLEDGE_ID,
+                    knowledgeClasses.get(position).getKnowledge_class_id());
+            mSelectDialog.dismiss();
         }
     }
 

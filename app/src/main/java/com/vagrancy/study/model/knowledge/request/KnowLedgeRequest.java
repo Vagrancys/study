@@ -124,10 +124,36 @@ public class KnowLedgeRequest {
 
     /**
      * 更新知识分类
-     * @param knowledgeClass
+     * @param knowledgeClass 知识分类合集
      * @return
      */
     public boolean updateKnowledgeClass(KnowledgeClass knowledgeClass) {
         return knowledgeClassUtils.update(knowledgeClass);
+    }
+
+    /**
+     * 查询知识子项所有
+     * @param knowledge_id 知识id
+     * @return
+     */
+    public List<Knowledge> queryChildAll(long knowledge_id) {
+        return knowledgeUtils.queryByQueryBuilder(KnowledgeDao.Properties.Knowledge_class.eq(knowledge_id));
+    }
+
+    /**
+     * 移动所有知识子项
+     * @param knowledgeId 子项合集
+     * @param knowledge_id 知识id
+     * @return
+     */
+    public boolean moveKnowledgeChildAll(List<Long> knowledgeId, long knowledge_id) {
+        boolean result = false;
+        for (Long knowLedge : knowledgeId){
+            Knowledge knowledge = knowledgeUtils.queryById(knowLedge);
+            knowledge.setKnowledge_class(knowledge_id);
+            knowledgeUtils.update(knowledge);
+            result = true;
+        }
+        return result;
     }
 }

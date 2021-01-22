@@ -37,18 +37,26 @@ public abstract class IViewAdapter<T,VH extends IViewAdapter.CommonViewHolder> e
     public IViewAdapter(Context context, int layout, int footerId, int headerId, List<T> list){
         this(context,layout,footerId,list);
         this.headerId = headerId;
-        this.IS_HEAD = true;
+        IS_HEAD = true;
     }
     public IViewAdapter(Context context, int layout, int footerId, List<T> list){
         this(context,layout,list);
         this.footerId = footerId;
-        this.IS_FOOT = true;
+        IS_FOOT = true;
     }
 
     public IViewAdapter(Context context, int layoutId, List<T> list){
         mContext = context;
         this.list = list;
         this.layoutId = layoutId;
+    }
+
+    public static void setIsFoot(boolean isFoot) {
+        IS_FOOT = isFoot;
+    }
+
+    public static void setIsHead(boolean isHead) {
+        IS_HEAD = isHead;
     }
 
     public void setEmpty(boolean empty){
@@ -97,9 +105,9 @@ public abstract class IViewAdapter<T,VH extends IViewAdapter.CommonViewHolder> e
     public int getItemCount() {
         if(list != null){
             if(list.size() > 0){
-                return list.size() +(IS_HEAD? 1: 0)+(IS_FOOT ? 1 :0);
+                return list.size() +(IS_HEAD ? 1: 0)+(IS_FOOT ? 1 :0);
             }else{
-                return 1;
+                return 0;
             }
         }
         return 1;

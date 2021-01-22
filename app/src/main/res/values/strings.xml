@@ -19,6 +19,7 @@
     <string name="dialog_tidy_hint">整理</string>
     <string name="dialog_insert_hint">添加</string>
     <string name="dialog_mileage_hint">里程</string>
+    <string name="knowledge_query_fail">查询为空,这需要你来处理!</string>
     <string name="knowledge_query_error">查询失败,这一定是我的错,说明作者遇到未知了!</string>
     <string name="knowledge_query_empty">查询不到说明?你还不快去增加一些知识!</string>
     <string name="knowledge_look_title">查看具体知识</string>
@@ -29,6 +30,8 @@
     <string name="knowledge_insert_hint">试着分一下类吧!</string>
     <string name="knowledge_insert_success">既然成功了,就再成功一次吧!</string>
     <string name="knowledge_insert_fail">没事.软件犯贱了,卸载就能解决!</string>
+    <string name="knowledge_move_success">移动成功,你可以再移动一些!</string>
+    <string name="knowledge_move_fail">移动失败,你可以看看情况!</string>
     <string name="common_header_text">到头了!</string>
     <string name="common_footer_text">到底了!</string>
     <string name="common_empty_text">是时候加些知识了!</string>

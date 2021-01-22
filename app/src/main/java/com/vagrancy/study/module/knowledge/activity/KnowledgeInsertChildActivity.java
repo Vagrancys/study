@@ -12,6 +12,8 @@ import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.module.knowledge.adapter.KnowledgeInsertChildAdapter;
 import com.vagrancy.study.module.knowledge.view.KnowledgeView;
 import com.vagrancy.study.presenter.knowledge.KnowledgePresenter;
+import com.vagrancy.study.utils.ConstantsUtils;
+import com.vagrancy.study.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,8 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
     RecyclerView recyclerView;
     private List<Knowledge> knowLedges = new ArrayList<>();
     private KnowledgeInsertChildAdapter mAdapter;
+    //知识id
+    private long knowledge_id;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_knowledge_insert_child;
@@ -46,7 +50,24 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
         return new KnowledgeView<Knowledge>(){
             @Override
             public void onSuccess(List<Knowledge> object) {
+                knowLedges.clear();
+                knowLedges.addAll(object);
+                if(knowLedges.size() > 0){
+                    mAdapter.setEmpty(false);
+                }else{
+                    mAdapter.setEmpty(true);
+                }
+            }
 
+            @Override
+            public void onFail(int message) {
+                ToastUtils.showToast(getBaseContext(),message);
+            }
+
+            @Override
+            public void onSuccess(int message) {
+                ToastUtils.showToast(getBaseContext(),message);
+                mPresenter.queryChildAll(knowledge_id);
             }
 
             @Override
@@ -63,6 +84,7 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
 
     @Override
     public void initView(Bundle save) {
+        knowledge_id = getIntent().getLongExtra(ConstantsUtils.KNOWLEDGE_ID,0);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         mAdapter = new KnowledgeInsertChildAdapter(getBaseContext(),knowLedges);
         recyclerView.setAdapter(mAdapter);
@@ -71,15 +93,21 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
     @Override
     public void initData() {
         //获取子项
+        mPresenter.queryChildAll(knowledge_id);
     }
 
     @OnClick({R.id.insert_child_determine,R.id.insert_child_cancel})
-    public void onClickViewed(View view){
+    public void onClicked(View view){
         switch (view.getId()){
             case R.id.insert_child_determine:
+                List<Long> knowledgeId = mAdapter.getSelectChild();
+                //移动选中的子项
+                mPresenter.moveKnowledgeChildAll(knowledgeId,knowledge_id);
                 //移动子项
                 break;
             case R.id.insert_child_cancel:
+                //取消
+                finish();
                 //取消
                 break;
         }

@@ -179,4 +179,32 @@ public class KnowledgePresenter extends BasePresenter<Knowledge,KnowledgeView<Kn
         mView.onFinish();
     }
 
+    /**
+     * 通过知识id查找子项
+     * @param knowledge_id 知识id
+     */
+    public void queryChildAll(long knowledge_id) {
+        List<Knowledge> knowLedge = knowLedgeRequest.queryChildAll(knowledge_id);
+        if(knowLedge.size() > 0){
+            mView.onSuccess(knowLedge);
+        }else{
+            mView.onFail(R.string.knowledge_query_fail);
+        }
+        mView.onFinish();
+    }
+
+    /**
+     * 修改知识子项的父id
+     * @param knowledgeId 知识子项合集
+     * @param knowledge_id  止水id
+     */
+    public void moveKnowledgeChildAll(List<Long> knowledgeId, long knowledge_id) {
+        boolean result = knowLedgeRequest.moveKnowledgeChildAll(knowledgeId,knowledge_id);
+        if(result){
+            mView.onSuccess(R.string.knowledge_move_success);
+        }else{
+            mView.onFail(R.string.knowledge_move_fail);
+        }
+        mView.onFinish();
+    }
 }

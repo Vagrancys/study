@@ -26,7 +26,7 @@ import butterknife.BindView;
  * Description: 知识添加子项适配器
  */
 public class KnowledgeInsertChildAdapter extends BaseViewAdapter<Knowledge, KnowledgeInsertChildAdapter.KnowledgeInsertChildViewHolder> {
-    private Map<Integer,Boolean> selectChild = new HashMap<>();
+    private Map<Long,Boolean> selectChild = new HashMap<>();
 
     public KnowledgeInsertChildAdapter(Context context, List<Knowledge> list) {
         super(context, R.layout.knowledge_insert_child_item, list);
@@ -39,7 +39,7 @@ public class KnowledgeInsertChildAdapter extends BaseViewAdapter<Knowledge, Know
             return;
         }
         for (Knowledge knowledge : knowLedge){
-            selectChild.put(knowledge.get_id().intValue(),false);
+            selectChild.put(knowledge.get_id(),false);
         }
     }
 
@@ -47,9 +47,9 @@ public class KnowledgeInsertChildAdapter extends BaseViewAdapter<Knowledge, Know
      * 获取选中的子项
      * @return
      */
-    public List<Integer> getSelectChild(){
-        List<Integer> child = new ArrayList<>();
-        for (Map.Entry<Integer,Boolean> entry : selectChild.entrySet()){
+    public List<Long> getSelectChild(){
+        List<Long> child = new ArrayList<>();
+        for (Map.Entry<Long,Boolean> entry : selectChild.entrySet()){
             if(entry.getValue()){
                 child.add(entry.getKey());
             }
@@ -64,7 +64,7 @@ public class KnowledgeInsertChildAdapter extends BaseViewAdapter<Knowledge, Know
 
     @Override
     public void onBindViewHolder(int position, KnowledgeInsertChildViewHolder holder, Knowledge knowledge) {
-        holder.childCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> selectChild.put(knowledge.get_id().intValue(),isChecked));
+        holder.childCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> selectChild.put(knowledge.get_id(),isChecked));
         holder.childTitle.setText(knowledge.getKnowledge_content());
     }
 
@@ -77,5 +77,4 @@ public class KnowledgeInsertChildAdapter extends BaseViewAdapter<Knowledge, Know
             super(view);
         }
     }
-
 }

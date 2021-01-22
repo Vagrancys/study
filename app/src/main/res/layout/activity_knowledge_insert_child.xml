@@ -20,6 +20,7 @@
         android:layout_below="@id/insert_child_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/width_100dp"
         android:scrollbars="none"
         android:overScrollMode="never"/>
     <LinearLayout

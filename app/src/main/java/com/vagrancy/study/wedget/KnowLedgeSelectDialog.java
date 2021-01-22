@@ -46,8 +46,8 @@ public class KnowLedgeSelectDialog extends AlertDialog{
         this.onDialogClickListener = onDialogClickListener;
     }
 
-    @OnClick({R.id.dialog_look,R.id.dialog_update,R.id.dialog_close,R.id.dialog_delete,
-            R.id.dialog_insert,R.id.dialog_tidy})
+    @OnClick({R.id.dialog_look,R.id.dialog_update,R.id.dialog_close,
+            R.id.dialog_delete,R.id.dialog_insert})
     public void onClicked(View view){
         switch (view.getId()){
             case R.id.dialog_close:
