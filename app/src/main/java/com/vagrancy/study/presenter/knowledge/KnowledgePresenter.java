@@ -29,11 +29,6 @@ public class KnowledgePresenter extends BasePresenter<Knowledge,KnowledgeView<Kn
     @Override
     public void bindView(KnowledgeView<Knowledge> view) {
         mView = view;
-        if(mView == null){
-            Log.e(KnowledgePresenter.class.getSimpleName(),"no bindView");
-        }else{
-            Log.e(KnowledgePresenter.class.getSimpleName(),"yes bindView");
-        }
     }
 
     /**
@@ -112,6 +107,7 @@ public class KnowledgePresenter extends BasePresenter<Knowledge,KnowledgeView<Kn
      */
     public void queryGroupAll() {
         List<KnowledgeClass> knowledgeClasses = knowLedgeRequest.queryGroupAll();
+        mView.onSuccess();
         if(knowledgeClasses == null){
             mView.onError(R.string.knowledge_query_error);
         }else if(knowledgeClasses.size() <= 0){
@@ -181,10 +177,9 @@ public class KnowledgePresenter extends BasePresenter<Knowledge,KnowledgeView<Kn
 
     /**
      * 通过知识id查找子项
-     * @param knowledge_id 知识id
      */
-    public void queryChildAll(long knowledge_id) {
-        List<Knowledge> knowLedge = knowLedgeRequest.queryChildAll(knowledge_id);
+    public void queryChildAll() {
+        List<Knowledge> knowLedge = knowLedgeRequest.queryChildAll();
         if(knowLedge.size() > 0){
             mView.onSuccess(knowLedge);
         }else{

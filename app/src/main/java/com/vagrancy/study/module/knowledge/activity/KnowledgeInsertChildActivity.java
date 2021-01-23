@@ -52,6 +52,7 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
             public void onSuccess(List<Knowledge> object) {
                 knowLedges.clear();
                 knowLedges.addAll(object);
+                mAdapter.initChild(knowLedges);
                 if(knowLedges.size() > 0){
                     mAdapter.setEmpty(false);
                 }else{
@@ -67,7 +68,7 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
             @Override
             public void onSuccess(int message) {
                 ToastUtils.showToast(getBaseContext(),message);
-                mPresenter.queryChildAll(knowledge_id);
+                mPresenter.queryChildAll();
             }
 
             @Override
@@ -87,13 +88,14 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
         knowledge_id = getIntent().getLongExtra(ConstantsUtils.KNOWLEDGE_ID,0);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         mAdapter = new KnowledgeInsertChildAdapter(getBaseContext(),knowLedges);
+        mAdapter.setIsFoot(false);
         recyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void initData() {
         //获取子项
-        mPresenter.queryChildAll(knowledge_id);
+        mPresenter.queryChildAll();
     }
 
     @OnClick({R.id.insert_child_determine,R.id.insert_child_cancel})

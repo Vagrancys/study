@@ -35,4 +35,9 @@ public class BasePresenter<O,V extends IBaseView<O>> implements IBasePresenter<O
     public void update(O object) {
 
     }
+
+    @Override
+    public void unBindView() {
+
+    }
 }

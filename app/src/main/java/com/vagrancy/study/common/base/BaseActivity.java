@@ -33,12 +33,12 @@ public abstract class BaseActivity<P extends BasePresenter,V extends BaseModelVi
         unbinder = ButterKnife.bind(this);
         initView(savedInstanceState);
         mPresenter = getPresenter();
+        initToolbar();
         if(mPresenter != null){
             mView = getModelView();
             mPresenter.bindView(mView);
         }
-        initToolbar();
-
+        initData();
     }
 
     public abstract P getPresenter();
@@ -46,12 +46,6 @@ public abstract class BaseActivity<P extends BasePresenter,V extends BaseModelVi
     public abstract V getModelView();
 
     public abstract void initToolbar();
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initData();
-    }
 
     public abstract void initView(Bundle save);
 

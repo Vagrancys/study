@@ -13,4 +13,5 @@ public interface IBasePresenter<O,V> {
     void delete(O object);
     void query(long key);
     void update(O object);
+    void unBindView();
 }

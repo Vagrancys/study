@@ -1,5 +1,7 @@
 package com.vagrancy.study.common.base;
 
+import android.util.Log;
+
 import java.util.List;
 
 /**
@@ -42,7 +44,7 @@ public class BaseModelView<O> implements IBaseView<O>{
 
     @Override
     public void onFinish() {
-
+        Log.e("onFinish","viewType ="+7);
     }
 
     @Override

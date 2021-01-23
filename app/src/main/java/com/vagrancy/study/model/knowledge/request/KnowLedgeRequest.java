@@ -136,8 +136,8 @@ public class KnowLedgeRequest {
      * @param knowledge_id 知识id
      * @return
      */
-    public List<Knowledge> queryChildAll(long knowledge_id) {
-        return knowledgeUtils.queryByQueryBuilder(KnowledgeDao.Properties.Knowledge_class.eq(knowledge_id));
+    public List<Knowledge> queryChildAll() {
+        return knowledgeUtils.queryByQueryBuilder(KnowledgeDao.Properties.Knowledge_class.eq(0));
     }
 
     /**

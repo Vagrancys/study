@@ -1,6 +1,7 @@
 package com.vagrancy.study.common.base;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,13 @@ public abstract class IViewAdapter<T,VH extends IViewAdapter.CommonViewHolder> e
     private static final int EMPTY = 3;
     private static boolean IS_HEAD = false;
     private static boolean IS_FOOT = false;
-    public static boolean IS_EMPTY = false;
+    private static boolean IS_EMPTY = false;
     public IViewAdapter(Context context, int layout, int footerId, int headerId, List<T> list){
         this(context,layout,footerId,list);
         this.headerId = headerId;
         IS_HEAD = true;
     }
+
     public IViewAdapter(Context context, int layout, int footerId, List<T> list){
         this(context,layout,list);
         this.footerId = footerId;
@@ -51,11 +53,11 @@ public abstract class IViewAdapter<T,VH extends IViewAdapter.CommonViewHolder> e
         this.layoutId = layoutId;
     }
 
-    public static void setIsFoot(boolean isFoot) {
+    public void setIsFoot(boolean isFoot) {
         IS_FOOT = isFoot;
     }
 
-    public static void setIsHead(boolean isHead) {
+    public void setIsHead(boolean isHead) {
         IS_HEAD = isHead;
     }
 
@@ -87,9 +89,9 @@ public abstract class IViewAdapter<T,VH extends IViewAdapter.CommonViewHolder> e
         if(IS_EMPTY){
             onBindEmptyHolder(position,holder);
         }else{
-            if(position == 0 && IS_HEAD){
+            if(position == 0 & IS_HEAD){
                 onBindHeadHolder(position,holder);
-            }else if(position ==getItemCount()-1 && IS_FOOT){
+            }else if(position ==getItemCount()-1 & IS_FOOT){
                 onBindFootHolder(position,holder);
             }else{
                 int mPosition = position;
@@ -106,11 +108,9 @@ public abstract class IViewAdapter<T,VH extends IViewAdapter.CommonViewHolder> e
         if(list != null){
             if(list.size() > 0){
                 return list.size() +(IS_HEAD ? 1: 0)+(IS_FOOT ? 1 :0);
-            }else{
-                return 0;
             }
         }
-        return 1;
+        return 0;
     }
 
     public abstract VH onCreateViewHolder(View view);
@@ -127,6 +127,7 @@ public abstract class IViewAdapter<T,VH extends IViewAdapter.CommonViewHolder> e
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         VH holder;
+
         switch (viewType){
             case HEAD:
                 view = LayoutInflater.from(parent.getContext()).inflate(headerId,parent,false);
@@ -169,16 +170,21 @@ public abstract class IViewAdapter<T,VH extends IViewAdapter.CommonViewHolder> e
 
     @Override
     public int getItemViewType(int position) {
+
         if(IS_EMPTY){
             return EMPTY;
         }else{
-            if(position == 0&& IS_HEAD){
-                return HEAD;
-            }else if(position == getItemCount()-1 && IS_FOOT){
-                return FOOT;
-            }else{
-                return ITEM;
+            if(IS_HEAD){
+                if(position == 0){
+                    return HEAD;
+                }
             }
+            if(IS_FOOT){
+                if(position == getItemCount()-1){
+                    return FOOT;
+                }
+            }
+            return ITEM;
         }
 
     }

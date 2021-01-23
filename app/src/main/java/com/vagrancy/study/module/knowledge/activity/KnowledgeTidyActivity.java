@@ -75,13 +75,6 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        swipeRefreshLayout.setRefreshing(true);
-        mPresenter.queryAll();
-    }
-
-    @Override
     public KnowledgeView<List<Knowledge>> getModelView() {
         return new KnowledgeView<List<Knowledge>>(){
             @Override
@@ -90,6 +83,11 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
                 mDialog.dismiss();
                 mSelectDialog.dismiss();
                 mPresenter.queryGroupAll();
+            }
+
+            @Override
+            public void onSuccess() {
+                Log.e("onFinish","viewType ="+7);
             }
 
             @Override
@@ -112,7 +110,6 @@ public class KnowledgeTidyActivity extends BaseActivity<KnowledgePresenter, Know
             @Override
             public void queryKnowledgeClass(List<KnowledgeClass> knowledge) {
                 knowledgeClasses.clear();
-                Log.e(TAG,"size ="+knowledge.size());
                 knowledgeClasses.addAll(knowledge);
             }
         };
