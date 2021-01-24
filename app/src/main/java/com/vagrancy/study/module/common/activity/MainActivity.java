@@ -1,6 +1,4 @@
-package com.vagrancy.study;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.vagrancy.study.module.common.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,39 +7,51 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.vagrancy.study.common.base.BaseActivity;
-import com.vagrancy.study.common.base.BaseModelView;
+import com.vagrancy.study.R;
+import com.vagrancy.study.common.base.BaseView;
 import com.vagrancy.study.common.base.BasePresenter;
+import com.vagrancy.study.common.contract.common.MainContract;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.module.knowledge.activity.KnowLedgeExamineActivity;
+import com.vagrancy.study.presenter.common.MainPresenter;
 import com.vagrancy.study.utils.CommonDaoUtils;
 import com.vagrancy.study.utils.DaoUtilsStore;
+import com.vagrancy.study.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseView<MainPresenter, MainContract.View<Knowledge>> {
     @BindView(R.id.knowledge_edit)
     EditText knowledgeEdit;
-    @BindView(R.id.knowledge_save)
-    ImageView knowledgeSave;
-    @BindView(R.id.knowledge_examine)
-    ImageView knowledgeExamine;
-    private CommonDaoUtils<Knowledge> knowledgeDao;
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
 
     @Override
-    public BasePresenter getPresenter() {
-        return null;
+    public MainContract.View<Knowledge> getContract() {
+        return new MainContract.View<Knowledge>() {
+            @Override
+            public void onFail(int message) {
+                ToastUtils.showToast(getBaseContext(),message);
+            }
+
+            @Override
+            public void onFinish() {
+            }
+
+            @Override
+            public void onSuccess(int message) {
+                ToastUtils.showToast(getBaseContext(),message);
+                knowledgeEdit.setText(null);
+            }
+        };
     }
 
     @Override
-    public BaseModelView getModelView() {
-        return null;
+    public MainPresenter getPresenter() {
+        return new MainPresenter();
     }
 
     @Override
@@ -52,7 +62,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView(Bundle save) {
     //1.分类 排序 升级
-        knowledgeDao = DaoUtilsStore.getInstance().getKnowledgeUtils();
     }
 
     @Override
@@ -85,12 +94,6 @@ public class MainActivity extends BaseActivity {
         knowledge.setKnowledge_content(save);
         knowledge.setKnowledge_state(1);
         knowledge.setKnowledge_save_time(System.currentTimeMillis());
-        boolean result = knowledgeDao.insert(knowledge);
-        if(result){
-            Toast.makeText(getBaseContext(),R.string.knowledge_save_success,Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getBaseContext(),R.string.knowledge_save_fail,Toast.LENGTH_SHORT).show();
-        }
-        knowledgeEdit.setText(null);
+        mPresenter.getContract().insertKnowledge(knowledge);
     }
 }

@@ -8,10 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vagrancy.study.R;
-import com.vagrancy.study.common.base.BaseActivity;
+import com.vagrancy.study.common.base.BaseView;
+import com.vagrancy.study.common.contract.knowledge.KnowledgeUpdateContract;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
-import com.vagrancy.study.module.knowledge.view.KnowledgeView;
-import com.vagrancy.study.presenter.knowledge.KnowledgePresenter;
+import com.vagrancy.study.presenter.knowledge.KnowledgeUpdatePresenter;
 import com.vagrancy.study.utils.ConstantsUtils;
 import com.vagrancy.study.utils.ToastUtils;
 
@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * Email:18050829067@163.com
  * Description: 知识更新
  */
-public class KnowLedgeUpdateActivity extends BaseActivity<KnowledgePresenter, KnowledgeView<Knowledge>> {
+public class KnowLedgeUpdateActivity extends BaseView<KnowledgeUpdatePresenter, KnowledgeUpdateContract.View<Knowledge>> {
     @BindView(R.id.common_title)
     TextView commonTitle;
     @BindView(R.id.common_operate)
@@ -40,15 +40,20 @@ public class KnowLedgeUpdateActivity extends BaseActivity<KnowledgePresenter, Kn
     }
 
     @Override
-    public KnowledgePresenter getPresenter() {
-        return new KnowledgePresenter();
-    }
-
-    @Override
-    public KnowledgeView<Knowledge> getModelView() {
-        return new KnowledgeView<Knowledge>(){
+    public KnowledgeUpdateContract.View<Knowledge> getContract() {
+        return new KnowledgeUpdateContract.View<Knowledge>() {
             @Override
             public void onFail(int message) {
+                ToastUtils.showToast(getBaseContext(),message);
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onSuccess(int message) {
                 ToastUtils.showToast(getBaseContext(),message);
             }
 
@@ -57,12 +62,12 @@ public class KnowLedgeUpdateActivity extends BaseActivity<KnowledgePresenter, Kn
                 knowledge = object;
                 knowledgeEdit.setText(knowledge.getKnowledge_content());
             }
-
-            @Override
-            public void onSuccess(int message) {
-                ToastUtils.showToast(getBaseContext(),message);
-            }
         };
+    }
+
+    @Override
+    public KnowledgeUpdatePresenter getPresenter() {
+        return new KnowledgeUpdatePresenter();
     }
 
     @Override
@@ -90,7 +95,7 @@ public class KnowLedgeUpdateActivity extends BaseActivity<KnowledgePresenter, Kn
                     return;
                 }
                 knowledge.setKnowledge_content(content);
-                mPresenter.update(knowledge);
+                mPresenter.getContract().updateKnowledge(knowledge);
                 break;
             case R.id.common_back:
                 finish();
@@ -100,6 +105,6 @@ public class KnowLedgeUpdateActivity extends BaseActivity<KnowledgePresenter, Kn
 
     @Override
     public void initData() {
-        mPresenter.query(knowledge_id);
+        mPresenter.getContract().queryKnowledge(knowledge_id);
     }
 }

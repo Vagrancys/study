@@ -1,24 +1,25 @@
-package com.vagrancy.study.common.base;
+package com.vagrancy.study.view.knowledge;
 
-import android.util.Log;
+import com.vagrancy.study.common.contract.knowledge.KnowledgeContract;
+import com.vagrancy.study.model.knowledge.entity.Knowledge;
 
 import java.util.List;
 
 /**
  * @author Vagrancy
- * @date 2021/1/10
+ * @date 2021/1/24
  * Github: https:github.com/Vagrancys
  * Email:18050829067@163.com
- * Description: 基础view实现类
+ * Description:
  */
-public class BaseModelView<O> implements IBaseView<O>{
+public class KnowledgeView implements KnowledgeContract.View<Knowledge> {
     @Override
     public void onSuccess() {
 
     }
 
     @Override
-    public void onSuccess(O object) {
+    public void onSuccess(Knowledge object) {
 
     }
 
@@ -44,11 +45,11 @@ public class BaseModelView<O> implements IBaseView<O>{
 
     @Override
     public void onFinish() {
-        Log.e("onFinish","viewType ="+7);
+
     }
 
     @Override
-    public void onSuccess(List<O> object) {
+    public void onSuccess(List<Knowledge> object) {
 
     }
 }

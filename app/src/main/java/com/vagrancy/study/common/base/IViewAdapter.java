@@ -65,10 +65,6 @@ public abstract class IViewAdapter<T,VH extends IViewAdapter.CommonViewHolder> e
         IS_EMPTY = empty;
     }
 
-    public BaseActivity getActivity(){
-        return (BaseActivity) mContext;
-    }
-
     public Context getContext(){
         return mContext;
     }

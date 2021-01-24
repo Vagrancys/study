@@ -2,6 +2,8 @@ package com.vagrancy.study.common.base;
 
 import android.util.Log;
 
+import java.lang.ref.WeakReference;
+
 /**
  * @author Vagrancy
  * @date 2021/1/10
@@ -9,35 +11,36 @@ import android.util.Log;
  * Email:18050829067@163.com
  * Description: 实现基础类
  */
-public class BasePresenter<O,V extends IBaseView<O>> implements IBasePresenter<O,V>{
-
-    @Override
-    public void bindView(V view) {
-
+public abstract class BasePresenter<V,M extends BaseModel,IBaseContract>{
+    protected M m;
+    //绑定view层弱引用
+    private WeakReference<V> vWeakReference;
+    public void bindView(V v) {
+        vWeakReference = new WeakReference<>(v);
     }
 
-    @Override
-    public void insert(O object) {
-
+    public BasePresenter(){
+        m = getModel();
     }
 
-    @Override
-    public void delete(O object) {
-
+    public void unBindView(){
+        if(vWeakReference != null){
+            vWeakReference.clear();
+            vWeakReference = null;
+            System.gc();
+        }
     }
 
-    @Override
-    public void query(long key) {
-
+    //获取view P --->V
+    public V getView(){
+        if(vWeakReference != null){
+            return vWeakReference.get();
+        }
+        return null;
     }
 
-    @Override
-    public void update(O object) {
+    //获取子类具体契约
+    public abstract IBaseContract getContract();
 
-    }
-
-    @Override
-    public void unBindView() {
-
-    }
+    public abstract M getModel();
 }

@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vagrancy.study.R;
-import com.vagrancy.study.common.base.BaseActivity;
+import com.vagrancy.study.common.base.BaseView;
+import com.vagrancy.study.common.contract.knowledge.KnowledgeInsertChildContract;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
+import com.vagrancy.study.model.knowledge.entity.KnowledgeClass;
 import com.vagrancy.study.module.knowledge.adapter.KnowledgeInsertChildAdapter;
-import com.vagrancy.study.module.knowledge.view.KnowledgeView;
-import com.vagrancy.study.presenter.knowledge.KnowledgePresenter;
+import com.vagrancy.study.presenter.knowledge.KnowledgeInsertChildPresenter;
 import com.vagrancy.study.utils.ConstantsUtils;
 import com.vagrancy.study.utils.ToastUtils;
 
@@ -28,7 +29,7 @@ import butterknife.OnClick;
  * Email:18050829067@163.com
  * Description: 知识添加子项
  */
-public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresenter, KnowledgeView<Knowledge>> {
+public class KnowledgeInsertChildActivity extends BaseView<KnowledgeInsertChildPresenter, KnowledgeInsertChildContract.View<Knowledge>> {
     @BindView(R.id.insert_child_recycler)
     RecyclerView recyclerView;
     private List<Knowledge> knowLedges = new ArrayList<>();
@@ -41,13 +42,8 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
     }
 
     @Override
-    public KnowledgePresenter getPresenter() {
-        return new KnowledgePresenter();
-    }
-
-    @Override
-    public KnowledgeView<Knowledge> getModelView() {
-        return new KnowledgeView<Knowledge>(){
+    public KnowledgeInsertChildContract.View<Knowledge> getContract() {
+        return new KnowledgeInsertChildContract.View<Knowledge>(){
             @Override
             public void onSuccess(List<Knowledge> object) {
                 knowLedges.clear();
@@ -66,9 +62,14 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
             }
 
             @Override
+            public void onError(int message) {
+                ToastUtils.showToast(getBaseContext(),message);
+            }
+
+            @Override
             public void onSuccess(int message) {
                 ToastUtils.showToast(getBaseContext(),message);
-                mPresenter.queryChildAll();
+                mPresenter.getContract().queryKnowledgeChildAll();
             }
 
             @Override
@@ -76,6 +77,11 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
                 mAdapter.notifyDataSetChanged();
             }
         };
+    }
+
+    @Override
+    public KnowledgeInsertChildPresenter getPresenter() {
+        return new KnowledgeInsertChildPresenter();
     }
 
     @Override
@@ -95,7 +101,7 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
     @Override
     public void initData() {
         //获取子项
-        mPresenter.queryChildAll();
+        mPresenter.getContract().queryKnowledgeChildAll();
     }
 
     @OnClick({R.id.insert_child_determine,R.id.insert_child_cancel})
@@ -104,7 +110,7 @@ public class KnowledgeInsertChildActivity extends BaseActivity<KnowledgePresente
             case R.id.insert_child_determine:
                 List<Long> knowledgeId = mAdapter.getSelectChild();
                 //移动选中的子项
-                mPresenter.moveKnowledgeChildAll(knowledgeId,knowledge_id);
+                mPresenter.getContract().moveKnowledgeChildAll(knowledgeId,knowledge_id);
                 //移动子项
                 break;
             case R.id.insert_child_cancel:

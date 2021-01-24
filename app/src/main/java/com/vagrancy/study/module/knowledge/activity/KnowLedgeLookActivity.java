@@ -6,10 +6,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vagrancy.study.R;
-import com.vagrancy.study.common.base.BaseActivity;
+import com.vagrancy.study.common.base.BaseView;
+import com.vagrancy.study.common.contract.knowledge.KnowledgeLookContract;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
-import com.vagrancy.study.module.knowledge.view.KnowledgeView;
-import com.vagrancy.study.presenter.knowledge.KnowledgePresenter;
+import com.vagrancy.study.presenter.knowledge.KnowledgeLookPresenter;
 import com.vagrancy.study.utils.ConstantsUtils;
 import com.vagrancy.study.utils.TimeUtils;
 import com.vagrancy.study.utils.ToastUtils;
@@ -24,7 +24,7 @@ import butterknife.OnClick;
  * Email:18050829067@163.com
  * Description: 知识查看
  */
-public class KnowLedgeLookActivity extends BaseActivity<KnowledgePresenter, KnowledgeView> {
+public class KnowLedgeLookActivity extends BaseView<KnowledgeLookPresenter, KnowledgeLookContract.View<Knowledge>>{
     @BindView(R.id.common_title)
     TextView commonTitle;
     @BindView(R.id.common_operate)
@@ -43,13 +43,8 @@ public class KnowLedgeLookActivity extends BaseActivity<KnowledgePresenter, Know
     }
 
     @Override
-    public KnowledgePresenter getPresenter() {
-        return new KnowledgePresenter();
-    }
-
-    @Override
-    public KnowledgeView getModelView() {
-        return new KnowledgeView<Knowledge>(){
+    public KnowledgeLookContract.View<Knowledge> getContract() {
+        return new KnowledgeLookContract.View<Knowledge>() {
             @Override
             public void onSuccess(Knowledge object) {
                 lookDetails.setText(object.getKnowledge_content());
@@ -61,7 +56,17 @@ public class KnowLedgeLookActivity extends BaseActivity<KnowledgePresenter, Know
             public void onFail(int message) {
                 ToastUtils.showToast(getBaseContext(),message);
             }
+
+            @Override
+            public void onFinish() {
+
+            }
         };
+    }
+
+    @Override
+    public KnowledgeLookPresenter getPresenter() {
+        return new KnowledgeLookPresenter();
     }
 
     @Override
@@ -86,6 +91,6 @@ public class KnowLedgeLookActivity extends BaseActivity<KnowledgePresenter, Know
 
     @Override
     public void initData() {
-        mPresenter.query(knowledge_id);
+        mPresenter.getContract().queryKnowledge(knowledge_id);
     }
 }

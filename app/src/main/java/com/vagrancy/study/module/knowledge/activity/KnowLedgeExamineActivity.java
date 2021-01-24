@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.vagrancy.study.R;
-import com.vagrancy.study.common.base.BaseActivity;
 import com.vagrancy.study.common.base.BaseNiceDialog;
+import com.vagrancy.study.common.base.BaseView;
+import com.vagrancy.study.common.contract.knowledge.KnowledgeExamineContract;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.module.knowledge.adapter.KnowLedgeExamineAdapter;
-import com.vagrancy.study.module.knowledge.view.KnowledgeView;
-import com.vagrancy.study.presenter.knowledge.KnowledgePresenter;
+import com.vagrancy.study.presenter.knowledge.KnowledgeExaminePresenter;
 import com.vagrancy.study.utils.ConstantsUtils;
 import com.vagrancy.study.utils.ToastUtils;
 import com.vagrancy.study.wedget.KnowLedgeExamineDialog;
@@ -37,7 +37,7 @@ import butterknife.OnClick;
  * Email:18050829067@163.com
  * Description: 知识查看
  */
-public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,KnowledgeView<Knowledge>>
+public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter, KnowledgeExamineContract.View<Knowledge>>
         implements KnowLedgeExamineDialog.OnDialogClickListener{
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
@@ -57,13 +57,9 @@ public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,Kn
     }
 
     @Override
-    public KnowledgePresenter getPresenter() {
-        return new KnowledgePresenter();
-    }
+    public KnowledgeExamineContract.View<Knowledge> getContract() {
+        return new KnowledgeExamineContract.View<Knowledge>(){
 
-    @Override
-    public KnowledgeView<Knowledge> getModelView() {
-        return new KnowledgeView<Knowledge>(){
             @Override
             public void onSuccess(int message) {
                 ToastUtils.showToast(getBaseContext(),message);
@@ -84,6 +80,11 @@ public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,Kn
             }
 
             @Override
+            public void onError(int message) {
+                ToastUtils.showToast(getBaseContext(),message);
+            }
+
+            @Override
             public void onFinish() {
                 knowLedgeExamineAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
@@ -99,10 +100,14 @@ public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,Kn
     }
 
     @Override
+    public KnowledgeExaminePresenter getPresenter() {
+        return new KnowledgeExaminePresenter();
+    }
+
+    @Override
     protected void onRestart() {
         super.onRestart();
-        mPresenter.queryAll();
-
+        mPresenter.getContract().queryKnowledgeAll();
     }
 
     @Override
@@ -138,14 +143,14 @@ public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,Kn
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-                getPresenter().queryAll();
+                mPresenter.getContract().queryKnowledgeAll();
             }
         });
     }
 
     @Override
     public void initData() {
-        getPresenter().queryAll();
+        mPresenter.getContract().queryKnowledgeAll();
     }
 
     @OnClick({R.id.common_back,R.id.common_operate})
@@ -183,7 +188,7 @@ public class KnowLedgeExamineActivity extends BaseActivity<KnowledgePresenter,Kn
     @Override
     public void onDelete(int position) {
         mPosition = position;
-        getPresenter().delete(knowledge.get(position));
+        mPresenter.getContract().deleteKnowledge(knowledge.get(position));
     }
 
     @Override

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/study_theme"
         android:name=".common.base.BaseApplication">
-        <activity android:name=".MainActivity"
+        <activity android:name=".module.common.activity.MainActivity"
             android:theme="@style/common_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
