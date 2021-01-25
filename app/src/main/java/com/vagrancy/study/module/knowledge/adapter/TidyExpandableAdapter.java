@@ -49,6 +49,8 @@ public class TidyExpandableAdapter extends BaseExpandableListAdapter {
     public int getChildrenCount(int groupPosition) {
         if(childrenData.size() <=0){
             return 0;
+        }else if(childrenData.size() == groupPosition){
+            return 0;
         }
         return childrenData.get(groupPosition).size();
     }

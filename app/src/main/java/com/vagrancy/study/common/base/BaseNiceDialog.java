@@ -122,7 +122,7 @@ public abstract class BaseNiceDialog extends DialogFragment {
             }
             //设置dialog宽度
             if (width == 0) {
-                lp.width = CommonUtils.getScreenWidth(getContext()) - 2 * CommonUtils.dp2px(getContext(), margin);
+                lp.width = CommonUtils.getScreenWidth(getContext()) - 2 * margin;
             } else if (width == -1) {
                 lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
             } else {

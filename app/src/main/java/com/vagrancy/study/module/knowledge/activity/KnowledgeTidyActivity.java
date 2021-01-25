@@ -5,9 +5,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -20,6 +22,7 @@ import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.model.knowledge.entity.KnowledgeClass;
 import com.vagrancy.study.module.knowledge.adapter.TidyExpandableAdapter;
 import com.vagrancy.study.presenter.knowledge.KnowledgeTidyPresenter;
+import com.vagrancy.study.utils.CommonUtils;
 import com.vagrancy.study.utils.ConstantsUtils;
 import com.vagrancy.study.utils.ToastUtils;
 import com.vagrancy.study.wedget.KnowLedgeSelectDialog;
@@ -145,13 +148,43 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
         });
         mAdapter = new TidyExpandableAdapter(knowledgeClasses,knowledge);
         expandable.setAdapter(mAdapter);
-        expandable.setOnGroupClickListener((parent, v, groupPosition, id) -> {
-            mSelectDialog.setPosition(groupPosition);
-            mSelectDialog.show();
-            return false;
+        expandable.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                mSelectDialog.setPosition(position);
+                mSelectDialog.show();
+                return false;
+            }
         });
         expandable.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            ToastUtils.showToast(getBaseContext(),R.string.common_text);
+            NiceDialog.init().setLayoutId(R.layout.dialog_select)
+                    .setConvertListener(new ViewConvertListener() {
+                @Override
+                protected void convertView(NiceViewHolder holder, BaseNiceDialog dialog) {
+                    //查看
+                    LinearLayout dialogLook = holder.getView(R.id.dialog_look);
+                    dialogLook.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openActivity(KnowLedgeLookActivity.class,ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id());
+                            dialog.dismiss();
+                        }
+                    });
+                    //移动
+                    LinearLayout dialogMove = holder.getView(R.id.dialog_move);
+                    dialogMove.setOnClickListener(v->{
+                        openActivity(KnowledgeMoveChildActivity.class,ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id());
+                        dialog.dismiss();
+                    });
+                    //删除
+                    LinearLayout dialogDelete = holder.getView(R.id.dialog_delete);
+                    dialogDelete.setOnClickListener(v1 -> {
+                        mPresenter.getContract().deleteKnowledge(knowledge.get(groupPosition).get(childPosition));
+                        dialog.dismiss();
+                    });
+                }
+            }).setMargin(CommonUtils.dp2px(getBaseContext(),R.dimen.width_44dp))
+                    .show(getSupportFragmentManager());
             return false;
         });
         //整理添加
@@ -222,6 +255,7 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
                             });
                         }
                     })
+                    .setMargin(CommonUtils.dp2px(getBaseContext(),R.dimen.width_44dp))
                     .setDimAmount(0.6f)
                     .show(getSupportFragmentManager());
             mSelectDialog.dismiss();
@@ -247,6 +281,7 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
                             });
                         }
                     })
+                    .setMargin(CommonUtils.dp2px(getBaseContext(),R.dimen.width_44dp))
                     .show(getSupportFragmentManager());
             mSelectDialog.dismiss();
         }

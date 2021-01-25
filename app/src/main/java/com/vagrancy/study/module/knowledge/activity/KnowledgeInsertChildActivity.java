@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vagrancy.study.R;
 import com.vagrancy.study.common.base.BaseView;
+import com.vagrancy.study.common.base.IViewAdapter;
 import com.vagrancy.study.common.contract.knowledge.KnowledgeInsertChildContract;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.model.knowledge.entity.KnowledgeClass;
@@ -96,6 +97,12 @@ public class KnowledgeInsertChildActivity extends BaseView<KnowledgeInsertChildP
         mAdapter = new KnowledgeInsertChildAdapter(getBaseContext(),knowLedges);
         mAdapter.setIsFoot(false);
         recyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new IViewAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int position) {
+                mAdapter.notifyItemChanged(position);
+            }
+        });
     }
 
     @Override

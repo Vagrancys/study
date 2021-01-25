@@ -16,6 +16,7 @@
     <string name="dialog_delete_hint">删除</string>
     <string name="dialog_look_hint">查看</string>
     <string name="dialog_advanced_hint">进阶</string>
+    <string name="dialog_move_hint">移动</string>
     <string name="dialog_tidy_hint">整理</string>
     <string name="dialog_insert_hint">添加</string>
     <string name="dialog_mileage_hint">里程</string>

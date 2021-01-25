@@ -17,6 +17,7 @@ import com.vagrancy.study.common.contract.knowledge.KnowledgeExamineContract;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.module.knowledge.adapter.KnowLedgeExamineAdapter;
 import com.vagrancy.study.presenter.knowledge.KnowledgeExaminePresenter;
+import com.vagrancy.study.utils.CommonUtils;
 import com.vagrancy.study.utils.ConstantsUtils;
 import com.vagrancy.study.utils.ToastUtils;
 import com.vagrancy.study.wedget.KnowLedgeExamineDialog;
@@ -175,6 +176,7 @@ public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter
                                 });
                             }
                         })
+                        .setMargin(CommonUtils.dp2px(getBaseContext(),R.dimen.width_44dp))
                         .show(getSupportFragmentManager());
                 break;
         }

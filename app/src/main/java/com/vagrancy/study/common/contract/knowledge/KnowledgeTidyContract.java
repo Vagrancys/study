@@ -20,6 +20,7 @@ public interface KnowledgeTidyContract {
         void updateKnowledgeClass(T object);
         void insertKnowLedgeClass(T object);
         void queryKnowledgeByClassIdAll(List<T> object);
+        void deleteKnowledge(Knowledge object);
     }
 
     //知识抽象view
@@ -52,5 +53,6 @@ public interface KnowledgeTidyContract {
         void responseDeleteResult(boolean result);
         void responseKnowledgeResult(List<List<Knowledge>> object);
         void responseResult(List<T> object);
+        void deleteKnowledge(Knowledge knowledge);
     }
 }

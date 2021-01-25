@@ -66,7 +66,6 @@ public class KnowledgeInsertChildAdapter extends BaseViewAdapter<Knowledge, Know
     @Override
     public void onBindViewHolder(int position, KnowledgeInsertChildViewHolder holder, Knowledge knowledge) {
         holder.childCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {selectChild.put(knowledge.get_id(),isChecked);
-            notifyDataSetChanged();
         });
         holder.childCheckBox.setChecked(selectChild.get(knowledge.get_id()));
         holder.childTitle.setText(knowledge.getKnowledge_content());

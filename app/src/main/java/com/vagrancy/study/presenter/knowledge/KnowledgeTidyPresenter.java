@@ -95,6 +95,8 @@ public class KnowledgeTidyPresenter extends BasePresenter<KnowledgeTidyActivity,
                 getView().getContract().queryKnowLedgeAll(object);
             }
 
+
+
             @Override
             public void responseResult(List<KnowledgeClass> object) {
                 if(object == null){
@@ -106,6 +108,11 @@ public class KnowledgeTidyPresenter extends BasePresenter<KnowledgeTidyActivity,
                     getModel().getContract().queryKnowledgeByClassIdAll(object);
                 }
                 getView().getContract().onFinish();
+            }
+
+            @Override
+            public void deleteKnowledge(Knowledge knowledge) {
+                getModel().getContract().deleteKnowledge(knowledge);
             }
         };
     }

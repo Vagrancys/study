@@ -67,6 +67,12 @@ public class KnowledgeTidyModel extends BaseModel<KnowledgeTidyPresenter, Knowle
                 }
 
             }
+
+            @Override
+            public void deleteKnowledge(Knowledge object) {
+                boolean result = knowLedgeRequest.deleteClassByKnowledge(object);
+                mPresenter.getContract().responseDeleteResult(result);
+            }
         };
     }
 }

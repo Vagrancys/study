@@ -23,7 +23,8 @@
         <activity android:name=".module.knowledge.activity.KnowLedgeUpdateActivity"/>
         <activity android:name=".module.knowledge.activity.KnowledgeTidyActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".module.knowledge.activity.KnowledgeInsertChildActivity"/>
+        <activity android:name=".module.knowledge.activity.KnowledgeInsertChildActivity"
+            android:theme="@style/knowledge_class_dialog"/>
     </application>
 
 </manifest>

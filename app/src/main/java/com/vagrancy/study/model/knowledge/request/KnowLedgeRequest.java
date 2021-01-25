@@ -133,7 +133,6 @@ public class KnowLedgeRequest {
 
     /**
      * 查询知识子项所有
-     * @param knowledge_id 知识id
      * @return
      */
     public List<Knowledge> queryChildAll() {
@@ -155,5 +154,15 @@ public class KnowLedgeRequest {
             result = true;
         }
         return result;
+    }
+
+    /**
+     * 删除知识的父类
+     * @param object
+     * @return
+     */
+    public boolean deleteClassByKnowledge(Knowledge object) {
+        object.setKnowledge_class(0);
+        return knowledgeUtils.update(object);
     }
 }
