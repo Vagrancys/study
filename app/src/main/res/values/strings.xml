@@ -11,7 +11,8 @@
     <string name="function_no_open">功能还没有开发,可以拷贝下源码,自己超越作者!</string>
     <string name="dialog_examine_title">功能表</string>
     <string name="dialog_operate_title">操作表</string>
-    <string name="dialog_insert_child_title">添加进子项吧!</string>
+    <string name="dialog_insert_child_title">添加下子项吧!</string>
+    <string name="dialog_move_child_title">要移动子项了吗!</string>
     <string name="dialog_update_hint">更新</string>
     <string name="dialog_delete_hint">删除</string>
     <string name="dialog_look_hint">查看</string>
@@ -42,6 +43,7 @@
     <string name="dialog_update_title">要修改了吗?</string>
     <string name="common_cancel_text">取消</string>
     <string name="common_determine_text">确定</string>
+    <string name="common_move_text">移动</string>
 
     <!--框架输出-->
     <string name="setting_presenter_null">presenter未初始化!</string>

@@ -167,7 +167,9 @@ public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter
                             protected void convertView(NiceViewHolder holder, BaseNiceDialog dialog) {
                                 LinearLayout dialogTidy = holder.getView(R.id.dialog_tidy);
                                 dialogTidy.setOnClickListener(v->{
-                                    openActivity(KnowledgeTidyActivity.class);
+                                    OpenActivity.init(KnowLedgeExamineActivity.this)
+                                            .putActivity(KnowledgeTidyActivity.class)
+                                            .launchActivity();
                                     dialog.dismiss();
                                 });
                                 ImageView dialogClose = holder.getView(R.id.dialog_close);
@@ -195,12 +197,18 @@ public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter
 
     @Override
     public void onUpdate(int position) {
-        openActivity(KnowLedgeUpdateActivity.class,ConstantsUtils.KNOWLEDGE_ID,knowledge.get(position).get_id());
+        OpenActivity.init(KnowLedgeExamineActivity.this)
+                .putActivity(KnowLedgeUpdateActivity.class)
+                .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(position).get_id())
+                .launchActivity();
     }
 
     @Override
     public void onLook(int position) {
-        openActivity(KnowLedgeLookActivity.class, ConstantsUtils.KNOWLEDGE_ID,knowledge.get(position).get_id());
+        OpenActivity.init(KnowLedgeExamineActivity.this)
+                .putActivity(KnowLedgeLookActivity.class)
+                .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(position).get_id())
+                .launchActivity();
     }
 
     @Override

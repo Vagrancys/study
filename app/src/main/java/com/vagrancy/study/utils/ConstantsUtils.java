@@ -8,5 +8,8 @@ package com.vagrancy.study.utils;
  * Description: 常量工具类
  */
 public class ConstantsUtils {
+    //知识id
     public static final String KNOWLEDGE_ID = "knowledge_id";
+    //知识分类id
+    public static final String KNOWLEDGE_CLASS_ID = "knowledge_class_id";
 }

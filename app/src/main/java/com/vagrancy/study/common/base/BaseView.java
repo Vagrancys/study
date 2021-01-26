@@ -63,20 +63,39 @@ public abstract class BaseView<P extends BasePresenter,IBaseContract> extends Ap
 
     }
 
-    public void openActivity(Class clazz){
-        openActivity(clazz,true,"",0);
-    }
+    public static class OpenActivity{
+        private static OpenActivity instance;
+        private static Intent mIntent;
+        private static boolean IsAnim = true;
+        private static Activity mActivity;
 
-    public void openActivity(Class clazz,String type,long key){
-        openActivity(clazz,true,type,key);
-    }
+        public static OpenActivity init(Activity activity){
+            mIntent = new Intent();
+            mActivity = activity;
+            instance = new OpenActivity();
+            return instance;
+        }
 
-    public void openActivity(Class clazz,boolean isAnim,String type,long key){
-        Intent intent = new Intent(this,clazz);
-        intent.putExtra(type,key);
-        startActivity(intent);
-        if(isAnim){
-            overridePendingTransition(R.anim.screen_enter_anim,R.anim.screen_no_anim);
+        public OpenActivity putActivity(Class clazz){
+            mIntent.setClass(mActivity,clazz);
+            return instance;
+        }
+
+        public OpenActivity isAnim(boolean isAnim){
+            IsAnim = isAnim;
+            return instance;
+        }
+
+        public OpenActivity putIntent(String type,long key){
+            mIntent.putExtra(type,key);
+            return instance;
+        }
+
+        public void launchActivity(){
+            mActivity.startActivity(mIntent);
+            if(IsAnim){
+                mActivity.overridePendingTransition(R.anim.screen_enter_anim,R.anim.screen_no_anim);
+            }
         }
     }
 

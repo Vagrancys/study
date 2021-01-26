@@ -76,7 +76,9 @@ public class MainActivity extends BaseView<MainPresenter, MainContract.View<Know
                 knowledgeSave();
                 break;
             case R.id.knowledge_examine:
-                openActivity(KnowLedgeExamineActivity.class);
+                OpenActivity.init(MainActivity.this)
+                        .putActivity(KnowLedgeExamineActivity.class)
+                        .launchActivity();
                 break;
         }
     }

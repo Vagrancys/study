@@ -165,4 +165,31 @@ public class KnowLedgeRequest {
         object.setKnowledge_class(0);
         return knowledgeUtils.update(object);
     }
+
+    /**
+     * 查询知识分类
+     * @param knowledge_class
+     * @return
+     */
+    public List<KnowledgeClass> queryClassByChildIdAll(long knowledge_class) {
+        List<KnowledgeClass> knowledgeClass = knowledgeClassUtils.queryAll();
+        for (KnowledgeClass knowLedgeClass : knowledgeClass){
+            if(knowLedgeClass.getKnowledge_class_id().equals(knowledge_class)){
+                knowledgeClass.remove(knowLedgeClass);
+            }
+        }
+        return knowledgeClass;
+    }
+
+    /**
+     * 更新分类数据
+     * @param knowledge_id 知识id
+     * @param selectChild 知识分类id
+     * @return
+     */
+    public boolean moveKnowledgeChildByClassId(long knowledge_id, Long selectChild) {
+        Knowledge knowledge = knowledgeUtils.queryById(knowledge_id);
+        knowledge.setKnowledge_class(selectChild);
+        return knowledgeUtils.update(knowledge);
+    }
 }

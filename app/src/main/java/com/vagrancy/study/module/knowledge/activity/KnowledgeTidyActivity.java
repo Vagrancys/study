@@ -1,5 +1,6 @@
 package com.vagrancy.study.module.knowledge.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -166,14 +167,21 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
                     dialogLook.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            openActivity(KnowLedgeLookActivity.class,ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id());
+                            OpenActivity.init(KnowledgeTidyActivity.this).putActivity(KnowLedgeLookActivity.class)
+                                    .isAnim(true)
+                                    .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id())
+                                    .putIntent(ConstantsUtils.KNOWLEDGE_CLASS_ID,knowledge.get(groupPosition).get(childPosition).getKnowledge_class())
+                                    .launchActivity();
                             dialog.dismiss();
                         }
                     });
                     //移动
                     LinearLayout dialogMove = holder.getView(R.id.dialog_move);
                     dialogMove.setOnClickListener(v->{
-                        openActivity(KnowledgeMoveChildActivity.class,ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id());
+                        OpenActivity.init(KnowledgeTidyActivity.this).putActivity(KnowledgeMoveChildActivity.class)
+                                .isAnim(true)
+                                .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id())
+                                .launchActivity();
                         dialog.dismiss();
                     });
                     //删除
@@ -289,9 +297,11 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
         @Override
         public void onInsert(int position) {
             //添加知识
-            openActivity(KnowledgeInsertChildActivity.class,
-                    ConstantsUtils.KNOWLEDGE_ID,
-                    knowledgeClasses.get(position).getKnowledge_class_id());
+            OpenActivity.init(KnowledgeTidyActivity.this)
+                    .putActivity(KnowledgeInsertChildActivity.class)
+                    .putIntent(ConstantsUtils.KNOWLEDGE_ID,
+                            knowledgeClasses.get(position).getKnowledge_class_id())
+                    .launchActivity();
             mSelectDialog.dismiss();
         }
     }
