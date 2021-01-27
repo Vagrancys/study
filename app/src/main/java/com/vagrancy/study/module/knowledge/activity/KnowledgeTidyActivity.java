@@ -164,16 +164,13 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
                 protected void convertView(NiceViewHolder holder, BaseNiceDialog dialog) {
                     //查看
                     LinearLayout dialogLook = holder.getView(R.id.dialog_look);
-                    dialogLook.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            OpenActivity.init(KnowledgeTidyActivity.this).putActivity(KnowLedgeLookActivity.class)
-                                    .isAnim(true)
-                                    .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id())
-                                    .putIntent(ConstantsUtils.KNOWLEDGE_CLASS_ID,knowledge.get(groupPosition).get(childPosition).getKnowledge_class())
-                                    .launchActivity();
-                            dialog.dismiss();
-                        }
+                    dialogLook.setOnClickListener(v12 -> {
+                        OpenActivity.init(KnowledgeTidyActivity.this).putActivity(KnowLedgeLookActivity.class)
+                                .isAnim(true)
+                                .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id())
+                                .putIntent(ConstantsUtils.KNOWLEDGE_CLASS_ID,knowledge.get(groupPosition).get(childPosition).getKnowledge_class())
+                                .launchActivity();
+                        dialog.dismiss();
                     });
                     //移动
                     LinearLayout dialogMove = holder.getView(R.id.dialog_move);

@@ -100,12 +100,7 @@ public class KnowledgeMoveChildActivity extends BaseView<KnowledgeMoveChildPrese
         mAdapter = new KnowledgeMoveChildAdapter(getBaseContext(),knowLedgeClass);
         mAdapter.setIsFoot(false);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new IViewAdapter.OnItemClickListener() {
-            @Override
-            public void OnItemClick(int position) {
-                mAdapter.notifyItemChanged(position);
-            }
-        });
+        mAdapter.setOnItemClickListener(position -> mAdapter.notifyItemChanged(position));
     }
 
     @Override
