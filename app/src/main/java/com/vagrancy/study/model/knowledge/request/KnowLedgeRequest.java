@@ -1,5 +1,7 @@
 package com.vagrancy.study.model.knowledge.request;
 
+import android.util.Log;
+
 import com.vagrancy.study.db.KnowledgeClassDao;
 import com.vagrancy.study.db.KnowledgeDao;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
@@ -7,6 +9,7 @@ import com.vagrancy.study.model.knowledge.entity.KnowledgeClass;
 import com.vagrancy.study.utils.CommonDaoUtils;
 import com.vagrancy.study.utils.DaoUtilsStore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -173,12 +176,13 @@ public class KnowLedgeRequest {
      */
     public List<KnowledgeClass> queryClassByChildIdAll(long knowledge_class) {
         List<KnowledgeClass> knowledgeClass = knowledgeClassUtils.queryAll();
-        for (KnowledgeClass knowLedgeClass : knowledgeClass){
-            if(knowLedgeClass.getKnowledge_class_id().equals(knowledge_class)){
-                knowledgeClass.remove(knowLedgeClass);
+        List<KnowledgeClass> newKnowledge = new ArrayList<>();
+        for (KnowledgeClass knowLedge : knowledgeClass){
+            if(!knowLedge.getKnowledge_class_id().equals(knowledge_class)){
+                newKnowledge.add(knowLedge);
             }
         }
-        return knowledgeClass;
+        return newKnowledge;
     }
 
     /**

@@ -16,7 +16,7 @@ public interface KnowledgeMoveChildContract {
     //知识抽象model
     interface Model<T>{
         void queryKnowledgeClassByChildIdAll(long knowledge_id);
-        void moveKnowledgeChildByClassIdAll(long knowledge_id, Long selectChild);
+        void moveKnowledgeChildByClassId(long knowledge_id, Long selectChild);
     }
 
     //知识抽象view
@@ -38,6 +38,6 @@ public interface KnowledgeMoveChildContract {
         void responseResult(List<T> object);
         void queryKnowledgeClassByChildIdAll(long knowledge_class);
         void responseMoveResult(boolean result);
-        void moveKnowledgeChildByClassIdAll(long knowledge_id, Long selectChild);
+        void moveKnowledgeChildByClassId(long knowledge_id, Long selectChild);
     }
 }

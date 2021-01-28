@@ -158,7 +158,7 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
             }
         });
         expandable.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            NiceDialog.init().setLayoutId(R.layout.dialog_select)
+            NiceDialog.init().setLayoutId(R.layout.dialog_child_select)
                     .setConvertListener(new ViewConvertListener() {
                 @Override
                 protected void convertView(NiceViewHolder holder, BaseNiceDialog dialog) {
@@ -168,7 +168,6 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
                         OpenActivity.init(KnowledgeTidyActivity.this).putActivity(KnowLedgeLookActivity.class)
                                 .isAnim(true)
                                 .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id())
-                                .putIntent(ConstantsUtils.KNOWLEDGE_CLASS_ID,knowledge.get(groupPosition).get(childPosition).getKnowledge_class())
                                 .launchActivity();
                         dialog.dismiss();
                     });
@@ -178,6 +177,7 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
                         OpenActivity.init(KnowledgeTidyActivity.this).putActivity(KnowledgeMoveChildActivity.class)
                                 .isAnim(true)
                                 .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(groupPosition).get(childPosition).get_id())
+                                .putIntent(ConstantsUtils.KNOWLEDGE_CLASS_ID,knowledge.get(groupPosition).get(childPosition).getKnowledge_class())
                                 .launchActivity();
                         dialog.dismiss();
                     });
@@ -203,6 +203,13 @@ public class KnowledgeTidyActivity extends BaseView<KnowledgeTidyPresenter, Know
 
     @Override
     public void initData() {
+        swipeRefreshLayout.setRefreshing(true);
+        mPresenter.getContract().queryKnowledgeGroupAll();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
         swipeRefreshLayout.setRefreshing(true);
         mPresenter.getContract().queryKnowledgeGroupAll();
     }

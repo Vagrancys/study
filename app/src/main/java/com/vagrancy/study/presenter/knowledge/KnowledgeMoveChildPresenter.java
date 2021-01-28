@@ -48,8 +48,8 @@ public class KnowledgeMoveChildPresenter extends BasePresenter<KnowledgeMoveChil
             }
 
             @Override
-            public void moveKnowledgeChildByClassIdAll(long knowledge_id, Long selectChild) {
-
+            public void moveKnowledgeChildByClassId(long knowledge_id, Long selectChild) {
+                getModel().getContract().moveKnowledgeChildByClassId(knowledge_id, selectChild);
             }
         };
     }

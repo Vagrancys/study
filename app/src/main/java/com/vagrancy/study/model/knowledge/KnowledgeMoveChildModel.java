@@ -33,7 +33,7 @@ public class KnowledgeMoveChildModel extends BaseModel<KnowledgeMoveChildPresent
             }
 
             @Override
-            public void moveKnowledgeChildByClassIdAll(long knowledge_id, Long selectChild) {
+            public void moveKnowledgeChildByClassId(long knowledge_id, Long selectChild) {
                 boolean result = knowLedgeRequest.moveKnowledgeChildByClassId(knowledge_id,selectChild);
                 mPresenter.getContract().responseMoveResult(result);
             }

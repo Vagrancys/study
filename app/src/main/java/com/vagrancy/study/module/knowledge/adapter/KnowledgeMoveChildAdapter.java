@@ -1,6 +1,7 @@
 package com.vagrancy.study.module.knowledge.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -45,6 +46,14 @@ public class KnowledgeMoveChildAdapter extends BaseViewAdapter<KnowledgeClass, K
     }
 
     /**
+     * 获取所有的选择项
+     * @return
+     */
+    public Map<Long,Boolean> getSelectAll(){
+        return selectChild;
+    }
+
+    /**
      * 获取选中的子项
      * @return
      */
@@ -76,10 +85,6 @@ public class KnowledgeMoveChildAdapter extends BaseViewAdapter<KnowledgeClass, K
 
     @Override
     public void onBindViewHolder(int position,KnowledgeMoveChildViewHolder holder, KnowledgeClass knowledgeClass) {
-        holder.childCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            clearSelectChild();
-            selectChild.put(knowledgeClass.getKnowledge_class_id(),isChecked);
-        });
         holder.childCheckBox.setChecked(selectChild.get(knowledgeClass.getKnowledge_class_id()));
         holder.childTitle.setText(knowledgeClass.getKnowledge_class_name());
     }

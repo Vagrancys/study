@@ -25,6 +25,7 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".module.knowledge.activity.KnowledgeInsertChildActivity"
             android:theme="@style/knowledge_class_dialog"/>
+        <activity android:name=".module.knowledge.activity.KnowledgeMoveChildActivity"
+            android:theme="@style/knowledge_class_dialog"/>
     </application>
-
 </manifest>

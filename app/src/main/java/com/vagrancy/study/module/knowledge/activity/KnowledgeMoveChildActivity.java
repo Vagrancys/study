@@ -1,6 +1,7 @@
 package com.vagrancy.study.module.knowledge.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -65,6 +66,7 @@ public class KnowledgeMoveChildActivity extends BaseView<KnowledgeMoveChildPrese
 
             @Override
             public void onSuccess(List<KnowledgeClass> object) {
+                Log.e("test","test"+object.get(0).getKnowledge_class_name());
                 knowLedgeClass.clear();
                 knowLedgeClass.addAll(object);
                 mAdapter.initChild(knowLedgeClass);
@@ -100,7 +102,11 @@ public class KnowledgeMoveChildActivity extends BaseView<KnowledgeMoveChildPrese
         mAdapter = new KnowledgeMoveChildAdapter(getBaseContext(),knowLedgeClass);
         mAdapter.setIsFoot(false);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(position -> mAdapter.notifyItemChanged(position));
+        mAdapter.setOnItemClickListener(position -> {
+            mAdapter.clearSelectChild();
+            mAdapter.getSelectAll().put(knowLedgeClass.get(position).getKnowledge_class_id(),true);
+            mAdapter.notifyDataSetChanged();
+        });
     }
 
     @Override
@@ -114,7 +120,8 @@ public class KnowledgeMoveChildActivity extends BaseView<KnowledgeMoveChildPrese
         switch (view.getId()){
             case R.id.move_child_determine:
                 //移动选中的子项
-                mPresenter.getContract().moveKnowledgeChildByClassIdAll(knowledge_id,mAdapter.getSelectChild());
+                knowledge_class = mAdapter.getSelectChild();
+                mPresenter.getContract().moveKnowledgeChildByClassId(knowledge_id,knowledge_class);
                 //移动子项
                 break;
             case R.id.move_child_cancel:
