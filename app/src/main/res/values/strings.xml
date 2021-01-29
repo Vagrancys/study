@@ -44,6 +44,12 @@
     <string name="common_cancel_text">取消</string>
     <string name="common_determine_text">确定</string>
     <string name="common_move_text">移动</string>
+    <string name="dialog_advanced_title">知识进阶</string>
+    <string name="advanced_ask">进阶要求</string>
+    <string name="advanced_count">进阶次数</string>
+    <string name="advanced_name">阶级称呼</string>
+    <string name="advanced_size">知识大小</string>
+    <string name="advanced_quality">知识质量</string>
 
     <!--框架输出-->
     <string name="setting_presenter_null">presenter未初始化!</string>
