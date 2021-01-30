@@ -69,13 +69,26 @@
             style="@style/common_text_view"
             android:layout_columnWeight="1"
             android:gravity="center"
-            android:text="@string/advanced_size"/>
+            android:text="@string/advanced_size"
+            android:layout_marginBottom="@dimen/width_10dp"/>
         <TextView
             android:id="@+id/advanced_quality"
             style="@style/common_text_view"
             android:layout_columnWeight="1"
             android:gravity="center"
-            android:text="@string/advanced_quality"/>
-
+            android:text="@string/advanced_quality"
+            android:layout_marginBottom="@dimen/width_10dp"/>
+        <TextView
+            android:id="@+id/advanced_master"
+            style="@style/common_text_view"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:text="@string/advanced_master"/>
+        <TextView
+            android:id="@+id/advanced_seniority"
+            style="@style/common_text_view"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:text="@string/advanced_seniority"/>
     </GridLayout>
 </RelativeLayout>

@@ -50,6 +50,8 @@
     <string name="advanced_name">阶级称呼</string>
     <string name="advanced_size">知识大小</string>
     <string name="advanced_quality">知识质量</string>
+    <string name="advanced_seniority">资质</string>
+    <string name="advanced_master">精通</string>
 
     <!--框架输出-->
     <string name="setting_presenter_null">presenter未初始化!</string>
