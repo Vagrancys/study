@@ -2,9 +2,11 @@ package com.vagrancy.study.model.knowledge.request;
 
 import android.util.Log;
 
+import com.vagrancy.study.db.KnowledgeAdvancedDao;
 import com.vagrancy.study.db.KnowledgeClassDao;
 import com.vagrancy.study.db.KnowledgeDao;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
+import com.vagrancy.study.model.knowledge.entity.KnowledgeAdvanced;
 import com.vagrancy.study.model.knowledge.entity.KnowledgeClass;
 import com.vagrancy.study.utils.CommonDaoUtils;
 import com.vagrancy.study.utils.DaoUtilsStore;
@@ -23,9 +25,11 @@ public class KnowLedgeRequest {
     private static KnowLedgeRequest instance;
     private CommonDaoUtils<Knowledge> knowledgeUtils;
     private CommonDaoUtils<KnowledgeClass> knowledgeClassUtils;
+    private CommonDaoUtils<KnowledgeAdvanced> knowledgeAdvancedUtils;
     private KnowLedgeRequest(){
         knowledgeUtils = DaoUtilsStore.getInstance().getKnowledgeUtils();
         knowledgeClassUtils = DaoUtilsStore.getInstance().getKnowledgeClassUtils();
+        knowledgeAdvancedUtils = DaoUtilsStore.getInstance().getKnowledgeAdvancedUtils();
     }
 
     public static KnowLedgeRequest getInstance(){
@@ -195,5 +199,35 @@ public class KnowLedgeRequest {
         Knowledge knowledge = knowledgeUtils.queryById(knowledge_id);
         knowledge.setKnowledge_class(selectChild);
         return knowledgeUtils.update(knowledge);
+    }
+
+    /**
+     * 通过id查找进阶数据
+     * @param
+     * @return
+     */
+    public KnowledgeAdvanced queryKnowledgeAdvanced(long knowledge_advanced) {
+        return knowledgeAdvancedUtils.queryById(knowledge_advanced);
+    }
+
+    /**
+     * 添加知识进阶
+     * @return
+     */
+    public boolean insertKnowledgeAdvanced(int knowledge_id) {
+        KnowledgeAdvanced knowledgeAdvanced = new KnowledgeAdvanced();
+        knowledgeAdvanced.setAdvanced_count(0);
+        knowledgeAdvanced.setAdvanced_master(0);
+        knowledgeAdvanced.setKnowledge_kid(knowledge_id);
+        knowledgeAdvanced.setAdvanced_master_ask(10);
+        knowledgeAdvanced.setAdvanced_nickname("");
+        knowledgeAdvanced.setAdvanced_quality(0);
+        knowledgeAdvanced.setGetAdvanced_quality_ask(10);
+        knowledgeAdvanced.setAdvanced_seniority(0);
+        knowledgeAdvanced.setAdvanced_seniority_ask(10);
+        knowledgeAdvanced.setAdvanced_size(0);
+        knowledgeAdvanced.setAdvanced_size_ask(10);
+        knowledgeAdvanced.setAdvanced_now(1);
+        return knowledgeAdvancedUtils.insert(knowledgeAdvanced);
     }
 }

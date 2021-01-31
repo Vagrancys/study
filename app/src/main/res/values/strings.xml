@@ -52,6 +52,8 @@
     <string name="advanced_quality">知识质量</string>
     <string name="advanced_seniority">资质</string>
     <string name="advanced_master">精通</string>
+    <string name="common_advanced_text">进阶</string>
+    <string name="advanced_info">升阶信息</string>
 
     <!--框架输出-->
     <string name="setting_presenter_null">presenter未初始化!</string>

@@ -23,6 +23,17 @@ public class KnowledgeAdvancedModel extends BaseModel<KnowledgeAdvancedPresenter
     @Override
     public KnowledgeAdvancedContract.Model<KnowledgeAdvanced> getContract() {
         return new KnowledgeAdvancedContract.Model<KnowledgeAdvanced>() {
+            @Override
+            public void queryKnowledgeAdvanced(long knowledge_id) {
+                KnowledgeAdvanced knowledgeAdvanced = knowLedgeRequest.queryKnowledgeAdvanced(knowledge_id);
+                mPresenter.getContract().responseResult(knowledgeAdvanced);
+            }
+
+            @Override
+            public void insertKnowledgeAdvanced() {
+                KnowledgeAdvanced knowledgeAdvanced = knowLedgeRequest.insertKnowledgeAdvanced();
+                mPresenter.getContract().responseResult(knowledgeAdvanced);
+            }
         };
     }
 }

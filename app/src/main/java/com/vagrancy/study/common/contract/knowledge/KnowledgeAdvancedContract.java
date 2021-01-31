@@ -12,6 +12,9 @@ import java.util.List;
 public interface KnowledgeAdvancedContract {
     //知识抽象model
     interface Model<T>{
+        void queryKnowledgeAdvanced(long knowledge_id);
+
+        void insertKnowledgeAdvanced();
     }
 
     //知识抽象view
@@ -31,5 +34,7 @@ public interface KnowledgeAdvancedContract {
     //知识抽象presenter
     interface Presenter<T>{
         void responseResult(T object);
+
+        void queryKnowledgeAdvanced(long knowledge_id);
     }
 }

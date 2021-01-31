@@ -2,10 +2,12 @@ package com.vagrancy.study.module.knowledge.activity;
 
 import android.os.Bundle;
 
+import com.vagrancy.study.R;
 import com.vagrancy.study.common.base.BaseView;
 import com.vagrancy.study.common.contract.knowledge.KnowledgeAdvancedContract;
 import com.vagrancy.study.model.knowledge.entity.KnowledgeAdvanced;
 import com.vagrancy.study.presenter.knowledge.KnowledgeAdvancedPresenter;
+import com.vagrancy.study.utils.ConstantsUtils;
 
 /**
  * @author Vagrancy
@@ -15,9 +17,10 @@ import com.vagrancy.study.presenter.knowledge.KnowledgeAdvancedPresenter;
  * Description: 知识进阶功能
  */
 public class KnowledgeAdvancedActivity extends BaseView<KnowledgeAdvancedPresenter, KnowledgeAdvancedContract.View<KnowledgeAdvanced>> {
+    private long knowledge_id;
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_knowledge_advanced;
     }
 
     @Override
@@ -62,11 +65,11 @@ public class KnowledgeAdvancedActivity extends BaseView<KnowledgeAdvancedPresent
 
     @Override
     public void initView(Bundle save) {
-
+        knowledge_id = getIntent().getLongExtra(ConstantsUtils.KNOWLEDGE_ID,0);
     }
 
     @Override
     public void initData() {
-
+        mPresenter.getContract().queryKnowledgeAdvanced(knowledge_id);
     }
 }

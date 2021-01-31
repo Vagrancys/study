@@ -1,5 +1,6 @@
 package com.vagrancy.study.presenter.knowledge;
 
+import com.vagrancy.study.R;
 import com.vagrancy.study.common.base.BasePresenter;
 import com.vagrancy.study.common.contract.knowledge.KnowledgeAdvancedContract;
 import com.vagrancy.study.model.knowledge.KnowledgeAdvancedModel;
@@ -19,7 +20,18 @@ public class KnowledgeAdvancedPresenter extends BasePresenter<KnowledgeAdvancedA
         return new KnowledgeAdvancedContract.Presenter<KnowledgeAdvanced>() {
             @Override
             public void responseResult(KnowledgeAdvanced object) {
+                if(object == null){
+                    getView().getContract().onSuccess(object);
+                }else{
+                    getModel().getContract().insertKnowledgeAdvanced();
+                    getView().getContract().onFail(R.string.knowledge_query_fail);
+                }
+                getView().getContract().onFinish();
+            }
 
+            @Override
+            public void queryKnowledgeAdvanced(long knowledge_id) {
+                getModel().getContract().queryKnowledgeAdvanced(knowledge_id);
             }
         };
     }
