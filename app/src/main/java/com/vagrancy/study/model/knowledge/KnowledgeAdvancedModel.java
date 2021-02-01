@@ -30,9 +30,15 @@ public class KnowledgeAdvancedModel extends BaseModel<KnowledgeAdvancedPresenter
             }
 
             @Override
-            public void insertKnowledgeAdvanced() {
-                KnowledgeAdvanced knowledgeAdvanced = knowLedgeRequest.insertKnowledgeAdvanced();
-                mPresenter.getContract().responseResult(knowledgeAdvanced);
+            public void insertKnowledgeAdvanced(long knowledge_id) {
+                boolean result = knowLedgeRequest.insertKnowledgeAdvanced(knowledge_id);
+                mPresenter.getContract().responseInsertResult(result);
+            }
+
+            @Override
+            public void updateKnowledgeAdvanced(KnowledgeAdvanced knowledgeAdvanced) {
+                KnowledgeAdvanced newKnowledgeAdvanced = knowLedgeRequest.updateKnowledgeAdvanced(knowledgeAdvanced);
+                mPresenter.getContract().responseUpdateResult(newKnowledgeAdvanced);
             }
         };
     }

@@ -20,10 +20,11 @@ public class KnowledgeAdvancedPresenter extends BasePresenter<KnowledgeAdvancedA
         return new KnowledgeAdvancedContract.Presenter<KnowledgeAdvanced>() {
             @Override
             public void responseResult(KnowledgeAdvanced object) {
-                if(object == null){
+                if(object != null){
                     getView().getContract().onSuccess(object);
                 }else{
-                    getModel().getContract().insertKnowledgeAdvanced();
+                    //添加知识
+                    getView().getContract().onInsert();
                     getView().getContract().onFail(R.string.knowledge_query_fail);
                 }
                 getView().getContract().onFinish();
@@ -33,6 +34,37 @@ public class KnowledgeAdvancedPresenter extends BasePresenter<KnowledgeAdvancedA
             public void queryKnowledgeAdvanced(long knowledge_id) {
                 getModel().getContract().queryKnowledgeAdvanced(knowledge_id);
             }
+
+            @Override
+            public void responseInsertResult(boolean result) {
+                if(result){
+                    getView().getContract().onSuccess(R.string.knowledge_insert_success);
+                }else{
+                    getView().getContract().onFail(R.string.knowledge_insert_fail);
+                }
+                getView().getContract().onFinish();
+            }
+
+            @Override
+            public void insertKnowledgeAdvanced(long knowledge_id) {
+                getModel().getContract().insertKnowledgeAdvanced(knowledge_id);
+            }
+
+            @Override
+            public void updateKnowledgeAdvanced(KnowledgeAdvanced knowledgeAdvanced) {
+                getModel().getContract().updateKnowledgeAdvanced(knowledgeAdvanced);
+            }
+
+            @Override
+            public void responseUpdateResult(KnowledgeAdvanced newKnowledgeAdvanced) {
+                if(newKnowledgeAdvanced == null){
+                    getView().getContract().onFail(R.string.knowledge_update_fail);
+                }else{
+                    getView().getContract().onUpdate();
+                }
+                getView().getContract().onFinish();
+            }
+
         };
     }
 

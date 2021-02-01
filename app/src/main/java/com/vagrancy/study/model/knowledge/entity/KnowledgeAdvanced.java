@@ -30,7 +30,7 @@ public class KnowledgeAdvanced {
     //质量
     private int advanced_quality;
     //进阶要求质量
-    private int getAdvanced_quality_ask;
+    private int advanced_quality_ask;
     //精通
     private int advanced_master;
     //进阶要求精通
@@ -39,12 +39,11 @@ public class KnowledgeAdvanced {
     private int advanced_seniority;
     //进阶要求资格
     private int advanced_seniority_ask;
-    @Generated(hash = 1939557210)
+    @Generated(hash = 1883279091)
     public KnowledgeAdvanced(Long advanced_id, long knowledge_kid, int advanced_now,
             int advanced_count, String advanced_nickname, int advanced_size,
-            int advanced_size_ask, int advanced_quality,
-            int getAdvanced_quality_ask, int advanced_master,
-            int advanced_master_ask, int advanced_seniority,
+            int advanced_size_ask, int advanced_quality, int advanced_quality_ask,
+            int advanced_master, int advanced_master_ask, int advanced_seniority,
             int advanced_seniority_ask) {
         this.advanced_id = advanced_id;
         this.knowledge_kid = knowledge_kid;
@@ -54,7 +53,7 @@ public class KnowledgeAdvanced {
         this.advanced_size = advanced_size;
         this.advanced_size_ask = advanced_size_ask;
         this.advanced_quality = advanced_quality;
-        this.getAdvanced_quality_ask = getAdvanced_quality_ask;
+        this.advanced_quality_ask = advanced_quality_ask;
         this.advanced_master = advanced_master;
         this.advanced_master_ask = advanced_master_ask;
         this.advanced_seniority = advanced_seniority;
@@ -111,11 +110,11 @@ public class KnowledgeAdvanced {
     public void setAdvanced_quality(int advanced_quality) {
         this.advanced_quality = advanced_quality;
     }
-    public int getGetAdvanced_quality_ask() {
-        return this.getAdvanced_quality_ask;
+    public int getAdvanced_quality_ask() {
+        return this.advanced_quality_ask;
     }
-    public void setGetAdvanced_quality_ask(int getAdvanced_quality_ask) {
-        this.getAdvanced_quality_ask = getAdvanced_quality_ask;
+    public void setAdvanced_quality_ask(int advanced_quality_ask) {
+        this.advanced_quality_ask = advanced_quality_ask;
     }
     public int getAdvanced_master() {
         return this.advanced_master;
@@ -141,4 +140,5 @@ public class KnowledgeAdvanced {
     public void setAdvanced_seniority_ask(int advanced_seniority_ask) {
         this.advanced_seniority_ask = advanced_seniority_ask;
     }
+   
 }

@@ -14,7 +14,9 @@ public interface KnowledgeAdvancedContract {
     interface Model<T>{
         void queryKnowledgeAdvanced(long knowledge_id);
 
-        void insertKnowledgeAdvanced();
+        void insertKnowledgeAdvanced(long knowledge_id);
+
+        void updateKnowledgeAdvanced(T knowledgeAdvanced);
     }
 
     //知识抽象view
@@ -29,6 +31,10 @@ public interface KnowledgeAdvancedContract {
         void onSuccess(T object);
 
         void onError(int message);
+
+        void onInsert();
+
+        void onUpdate();
     }
 
     //知识抽象presenter
@@ -36,5 +42,13 @@ public interface KnowledgeAdvancedContract {
         void responseResult(T object);
 
         void queryKnowledgeAdvanced(long knowledge_id);
+
+        void responseInsertResult(boolean result);
+
+        void insertKnowledgeAdvanced(long knowledge_id);
+
+        void updateKnowledgeAdvanced(T knowledgeAdvanced);
+
+        void responseUpdateResult(T newKnowledgeAdvanced);
     }
 }

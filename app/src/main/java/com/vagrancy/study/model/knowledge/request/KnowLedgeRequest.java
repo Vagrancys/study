@@ -214,20 +214,75 @@ public class KnowLedgeRequest {
      * 添加知识进阶
      * @return
      */
-    public boolean insertKnowledgeAdvanced(int knowledge_id) {
+    public boolean insertKnowledgeAdvanced(long knowledge_id) {
         KnowledgeAdvanced knowledgeAdvanced = new KnowledgeAdvanced();
         knowledgeAdvanced.setAdvanced_count(0);
         knowledgeAdvanced.setAdvanced_master(0);
         knowledgeAdvanced.setKnowledge_kid(knowledge_id);
-        knowledgeAdvanced.setAdvanced_master_ask(10);
+        knowledgeAdvanced.setAdvanced_master_ask(1);
         knowledgeAdvanced.setAdvanced_nickname("");
         knowledgeAdvanced.setAdvanced_quality(0);
-        knowledgeAdvanced.setGetAdvanced_quality_ask(10);
+        knowledgeAdvanced.setAdvanced_quality_ask(1);
         knowledgeAdvanced.setAdvanced_seniority(0);
-        knowledgeAdvanced.setAdvanced_seniority_ask(10);
+        knowledgeAdvanced.setAdvanced_seniority_ask(1);
         knowledgeAdvanced.setAdvanced_size(0);
-        knowledgeAdvanced.setAdvanced_size_ask(10);
+        knowledgeAdvanced.setAdvanced_size_ask(100);
         knowledgeAdvanced.setAdvanced_now(1);
         return knowledgeAdvancedUtils.insert(knowledgeAdvanced);
     }
+
+    /**
+     * 更新知识进阶
+     * @param knowledgeAdvanced
+     * @return
+     */
+    public KnowledgeAdvanced updateKnowledgeAdvanced(KnowledgeAdvanced knowledgeAdvanced) {
+        KnowledgeAdvanced newKnowledgeAdvanced = updateKnowledge(knowledgeAdvanced);
+        boolean result = knowledgeAdvancedUtils.update(newKnowledgeAdvanced);
+        if(result){
+            return newKnowledgeAdvanced;
+        }else{
+            return null;
+        }
+    }
+
+    private KnowledgeAdvanced updateKnowledge(KnowledgeAdvanced knowledgeAdvanced) {
+        switch (knowledgeAdvanced.getAdvanced_now()){
+            case 1:
+                knowledgeAdvanced.setAdvanced_size_ask(100);
+                knowledgeAdvanced.setAdvanced_quality_ask(1);
+                knowledgeAdvanced.setAdvanced_seniority_ask(1);
+                knowledgeAdvanced.setAdvanced_master_ask(1);
+                break;
+            case 2:
+                knowledgeAdvanced.setAdvanced_size_ask(300);
+                knowledgeAdvanced.setAdvanced_quality_ask(3);
+                knowledgeAdvanced.setAdvanced_seniority_ask(3);
+                knowledgeAdvanced.setAdvanced_master_ask(2);
+                break;
+            case 3:
+                knowledgeAdvanced.setAdvanced_size_ask(500);
+                knowledgeAdvanced.setAdvanced_quality_ask(5);
+                knowledgeAdvanced.setAdvanced_seniority_ask(5);
+                knowledgeAdvanced.setAdvanced_master_ask(3);
+                break;
+            case 4:
+                knowledgeAdvanced.setAdvanced_size_ask(800);
+                knowledgeAdvanced.setAdvanced_quality_ask(8);
+                knowledgeAdvanced.setAdvanced_seniority_ask(8);
+                knowledgeAdvanced.setAdvanced_master_ask(4);
+                break;
+            case 5:
+                knowledgeAdvanced.setAdvanced_size_ask(1200);
+                knowledgeAdvanced.setAdvanced_quality_ask(12);
+                knowledgeAdvanced.setAdvanced_seniority_ask(12);
+                knowledgeAdvanced.setAdvanced_master_ask(5);
+                break;
+        }
+        knowledgeAdvanced.setAdvanced_count(knowledgeAdvanced.getAdvanced_count()+1);
+        knowledgeAdvanced.setAdvanced_now(knowledgeAdvanced.getAdvanced_now()+1);
+        return knowledgeAdvanced;
+    }
+
+
 }

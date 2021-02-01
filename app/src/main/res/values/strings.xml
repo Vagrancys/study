@@ -54,6 +54,11 @@
     <string name="advanced_master">精通</string>
     <string name="common_advanced_text">进阶</string>
     <string name="advanced_info">升阶信息</string>
+    <string name="knowledge_advanced_size_hint">知识的数量还不够,还要更多才行!</string>
+    <string name="knowledge_advanced_quality_hint">知识的质量不行,是做不了武器的!</string>
+    <string name="knowledge_advanced_master_hint">自身能力不够,是不能掌握好知识的!</string>
+    <string name="knowledge_advanced_seniority_hint">没有获取相应的资格,贸然提升有危险!</string>
+    <string name="knowledge_advanced_full_hint">到顶</string>
 
     <!--框架输出-->
     <string name="setting_presenter_null">presenter未初始化!</string>
