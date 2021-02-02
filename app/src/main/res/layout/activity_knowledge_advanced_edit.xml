@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetStart="@dimen/width_0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width_44dp">
+            <ImageView
+                android:id="@+id/knowledge_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/width_10dp"
+                android:src="@drawable/common_save_normal"
+                android:layout_toStartOf="@+id/knowledge_advanced"
+                android:layout_marginRight="@dimen/width_10dp"
+                android:layout_toLeftOf="@+id/knowledge_advanced" />
+            <ImageView
+                android:id="@+id/knowledge_advanced"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/width_10dp"
+                android:src="@drawable/common_advanced_normal"
+                android:layout_marginRight="@dimen/width_10dp" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <EditText
+            android:id="@+id/knowledge_edit"
+            style="@style/common_edit_view"/>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
