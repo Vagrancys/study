@@ -140,12 +140,9 @@ public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter
         });
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.white));
         //TODO  4.等级 5.说明 6.进阶 7.分类 8.搜索
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                mPresenter.getContract().queryKnowledgeAll();
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+            mPresenter.getContract().queryKnowledgeAll();
         });
     }
 
@@ -184,17 +181,20 @@ public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter
         }
     }
 
+    //关闭流程
     @Override
     public void onClose() {
         mDialog.dismiss();
     }
 
+    //删除流程
     @Override
     public void onDelete(int position) {
         mPosition = position;
         mPresenter.getContract().deleteKnowledge(knowledge.get(position));
     }
 
+    //更新流程
     @Override
     public void onUpdate(int position) {
         OpenActivity.init(KnowLedgeExamineActivity.this)
@@ -203,6 +203,7 @@ public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter
                 .launchActivity();
     }
 
+    //查看流程
     @Override
     public void onLook(int position) {
         OpenActivity.init(KnowLedgeExamineActivity.this)
@@ -211,14 +212,16 @@ public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter
                 .launchActivity();
     }
 
+    //进阶流程
     @Override
     public void onAdvanced(int position) {
         OpenActivity.init(KnowLedgeExamineActivity.this)
-                .putActivity(KnowledgeAdvancedActivity.class)
+                .putActivity(KnowledgeAdvancedEditActivity.class)
                 .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(position).get_id())
                 .launchActivity();
     }
 
+    //里程
     @Override
     public void onMileage(int position) {
 

@@ -12,18 +12,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/width_44dp">
+            <TextView
+                android:id="@+id/advanced_title"
+                style="@style/common_text_view"
+                android:text="@string/knowledge_advanced_title"
+                android:layout_centerInParent="true"/>
             <ImageView
-                android:id="@+id/knowledge_save"
+                android:id="@+id/advanced_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/width_10dp"
                 android:src="@drawable/common_save_normal"
-                android:layout_toStartOf="@+id/knowledge_advanced"
+                android:layout_toStartOf="@+id/advanced_dialog"
                 android:layout_marginRight="@dimen/width_10dp"
-                android:layout_toLeftOf="@+id/knowledge_advanced" />
+                android:layout_toLeftOf="@+id/advanced_dialog" />
             <ImageView
-                android:id="@+id/knowledge_advanced"
+                android:id="@+id/advanced_dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -43,8 +48,26 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/width_5dp"
+            android:padding="@dimen/width_10dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/advanced_size"
+                style="@style/common_text_view"
+                android:layout_marginBottom="@dimen/width_10dp"/>
+            <TextView
+                android:id="@+id/advanced_quality"
+                style="@style/common_text_view"
+                android:layout_marginBottom="@dimen/width_10dp"/>
+            <TextView
+                android:id="@+id/advanced_master"
+                style="@style/common_text_view"
+                android:layout_marginBottom="@dimen/width_10dp"/>
+            <TextView
+                android:id="@+id/advanced_seniority"
+                style="@style/common_text_view"/>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -246,6 +246,15 @@ public class KnowLedgeRequest {
         }
     }
 
+    /**
+     * 更新知识进阶
+     * @param knowledgeAdvanced
+     * @return
+     */
+    public boolean updateOneKnowledgeAdvanced(KnowledgeAdvanced knowledgeAdvanced) {
+        return knowledgeAdvancedUtils.update(knowledgeAdvanced);
+    }
+
     private KnowledgeAdvanced updateKnowledge(KnowledgeAdvanced knowledgeAdvanced) {
         switch (knowledgeAdvanced.getAdvanced_now()){
             case 1:
@@ -284,5 +293,17 @@ public class KnowLedgeRequest {
         return knowledgeAdvanced;
     }
 
-
+    /**
+     * 通过知识id查找知识进阶
+     * @param knowledge_id 知识id
+     * @return
+     */
+    public KnowledgeAdvanced queryKnowledgeAdvancedByKnowledgeId(long knowledge_id) {
+        List<KnowledgeAdvanced> knowledgeAdvanced = knowledgeAdvancedUtils.queryByQueryBuilder(KnowledgeAdvancedDao.Properties.Knowledge_kid.eq(knowledge_id));
+        if(knowledgeAdvanced.size() > 0){
+            return knowledgeAdvanced.get(0);
+        }else{
+            return null;
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.vagrancy.study.common.contract.knowledge;
 
+import com.vagrancy.study.model.knowledge.entity.KnowledgeAdvanced;
+
 /**
  * @author Vagrancy
  * @date 2021/2/1
@@ -11,6 +13,13 @@ public interface KnowledgeAdvancedEditContract {
     //知识抽象model
     interface Model<T>{
 
+        void queryKnowledge(long knowledge_id);
+
+        void queryKnowledgeAdvanced(long knowledge_id);
+
+        void updateKnowledge(T knowledge);
+
+        void updateKnowledgeAdvanced(KnowledgeAdvanced knowledgeAdvanced);
     }
 
     //知识抽象view
@@ -26,11 +35,23 @@ public interface KnowledgeAdvancedEditContract {
 
         void onError(int message);
 
-
+        void onSuccess(KnowledgeAdvanced knowledgeAdvanced);
     }
 
     //知识抽象presenter
     interface Presenter<T>{
-        void responseResult(T object);
+        void responseKnowledgeAdvancedResult(KnowledgeAdvanced object);
+
+        void queryKnowledge(long knowledge_id);
+
+        void responseKnowledgeResult(T knowledge);
+
+        void queryKnowledgeAdvanced(long knowledge_id);
+
+        void updateKnowledge(T knowledge);
+
+        void responseUpdateResult(boolean result);
+
+        void updateKnowledgeAdvanced(KnowledgeAdvanced knowledgeAdvanced);
     }
 }

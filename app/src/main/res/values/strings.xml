@@ -59,7 +59,15 @@
     <string name="knowledge_advanced_master_hint">自身能力不够,是不能掌握好知识的!</string>
     <string name="knowledge_advanced_seniority_hint">没有获取相应的资格,贸然提升有危险!</string>
     <string name="knowledge_advanced_full_hint">到顶</string>
+    <string name="knowledge_advanced_title">进阶吧,boy!</string>
 
+    <!--进阶知识-->
+    <string name="knowledge_advanced_empty">如果一定要这样,当初就不应该进来!</string>
+    <string name="knowledge_advanced_equals">r如果一成不变,那还有什么要变!</string>
+    <string name="knowledge_advanced_empty_hint">既然知道没有任何知识,还不快点做些什么!</string>
+
+    <!--知识里程-->
+    <string name="knowledge_mileage_title">这是知识的一生</string>
     <!--框架输出-->
     <string name="setting_presenter_null">presenter未初始化!</string>
     <string name="setting_view_null">view未初始化!</string>
