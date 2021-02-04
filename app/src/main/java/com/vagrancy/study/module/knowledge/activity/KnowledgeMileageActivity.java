@@ -1,12 +1,24 @@
 package com.vagrancy.study.module.knowledge.activity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.vagrancy.study.R;
 import com.vagrancy.study.common.base.BaseView;
 import com.vagrancy.study.common.contract.knowledge.KnowledgeMileageContract;
 import com.vagrancy.study.model.knowledge.entity.KnowledgeMileage;
+import com.vagrancy.study.module.knowledge.adapter.KnowledgeMileageAdapter;
 import com.vagrancy.study.presenter.knowledge.KnowledgeAdvancedEditPresenter;
 import com.vagrancy.study.presenter.knowledge.KnowledgeMileagePresenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * @author Vagrancy
@@ -16,10 +28,17 @@ import com.vagrancy.study.presenter.knowledge.KnowledgeMileagePresenter;
  * Description: 知识里程活动
  */
 public class KnowledgeMileageActivity extends BaseView<KnowledgeMileagePresenter, KnowledgeMileageContract.View<KnowledgeMileage>> {
-
+    @BindView(R.id.swipeRefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.recycler)
+    RecyclerView recyclerView;
+    @BindView(R.id.common_back)
+    ImageView commonBack;
+    private List<KnowledgeMileage> knowledgeMileages = new ArrayList<>();
+    private KnowledgeMileageAdapter mAdapter;
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_knowledge_mileage;
     }
 
     @Override
@@ -59,12 +78,24 @@ public class KnowledgeMileageActivity extends BaseView<KnowledgeMileagePresenter
 
     @Override
     public void initToolbar() {
-
+        commonBack.setOnClickListener(v->{
+            finish();
+        });
     }
 
     @Override
     public void initView(Bundle save) {
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.white));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
 
+            }
+        });
+        mAdapter = new KnowledgeMileageAdapter(getBaseContext(),knowledgeMileages);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

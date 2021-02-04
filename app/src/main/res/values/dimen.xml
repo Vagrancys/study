@@ -2,6 +2,7 @@
 <resources>
     <dimen name="width_0dp">0dp</dimen>
     <dimen name="width_1dp">1dp</dimen>
+    <dimen name="width_2dp">2dp</dimen>
     <dimen name="width_5dp">5dp</dimen>
     <dimen name="width_10dp">10dp</dimen>
     <dimen name="width_20dp">20dp</dimen>

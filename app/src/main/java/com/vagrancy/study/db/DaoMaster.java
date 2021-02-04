@@ -24,6 +24,7 @@ public class DaoMaster extends AbstractDaoMaster {
         KnowledgeDao.createTable(db, ifNotExists);
         KnowledgeAdvancedDao.createTable(db, ifNotExists);
         KnowledgeClassDao.createTable(db, ifNotExists);
+        KnowledgeMileageDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -31,6 +32,7 @@ public class DaoMaster extends AbstractDaoMaster {
         KnowledgeDao.dropTable(db, ifExists);
         KnowledgeAdvancedDao.dropTable(db, ifExists);
         KnowledgeClassDao.dropTable(db, ifExists);
+        KnowledgeMileageDao.dropTable(db, ifExists);
     }
 
     /**
@@ -52,6 +54,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(KnowledgeDao.class);
         registerDaoClass(KnowledgeAdvancedDao.class);
         registerDaoClass(KnowledgeClassDao.class);
+        registerDaoClass(KnowledgeMileageDao.class);
     }
 
     public DaoSession newSession() {
