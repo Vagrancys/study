@@ -224,6 +224,9 @@ public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter
     //里程
     @Override
     public void onMileage(int position) {
-
+        OpenActivity.init(KnowLedgeExamineActivity.this)
+                .putActivity(KnowledgeMileageActivity.class)
+                .putIntent(ConstantsUtils.KNOWLEDGE_ID,knowledge.get(position).get_id())
+                .launchActivity();
     }
 }

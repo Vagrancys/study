@@ -5,9 +5,11 @@ import android.util.Log;
 import com.vagrancy.study.db.KnowledgeAdvancedDao;
 import com.vagrancy.study.db.KnowledgeClassDao;
 import com.vagrancy.study.db.KnowledgeDao;
+import com.vagrancy.study.db.KnowledgeMileageDao;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.model.knowledge.entity.KnowledgeAdvanced;
 import com.vagrancy.study.model.knowledge.entity.KnowledgeClass;
+import com.vagrancy.study.model.knowledge.entity.KnowledgeMileage;
 import com.vagrancy.study.utils.CommonDaoUtils;
 import com.vagrancy.study.utils.DaoUtilsStore;
 
@@ -26,6 +28,7 @@ public class KnowLedgeRequest {
     private CommonDaoUtils<Knowledge> knowledgeUtils;
     private CommonDaoUtils<KnowledgeClass> knowledgeClassUtils;
     private CommonDaoUtils<KnowledgeAdvanced> knowledgeAdvancedUtils;
+    private CommonDaoUtils<KnowledgeMileage> knowledgeMileageUtils;
     private KnowLedgeRequest(){
         knowledgeUtils = DaoUtilsStore.getInstance().getKnowledgeUtils();
         knowledgeClassUtils = DaoUtilsStore.getInstance().getKnowledgeClassUtils();
@@ -305,5 +308,12 @@ public class KnowLedgeRequest {
         }else{
             return null;
         }
+    }
+
+    /**
+     * 通过知识id查找知识里程
+     */
+    public List<KnowledgeMileage> queryKnowledgeMileage(long knowledge_id) {
+        return knowledgeMileageUtils.queryByQueryBuilder(KnowledgeMileageDao.Properties.Knowledge_mileage_kid.eq(knowledge_id));
     }
 }

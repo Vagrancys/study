@@ -14,6 +14,8 @@ import com.vagrancy.study.model.knowledge.entity.KnowledgeMileage;
 import com.vagrancy.study.module.knowledge.adapter.KnowledgeMileageAdapter;
 import com.vagrancy.study.presenter.knowledge.KnowledgeAdvancedEditPresenter;
 import com.vagrancy.study.presenter.knowledge.KnowledgeMileagePresenter;
+import com.vagrancy.study.utils.ConstantsUtils;
+import com.vagrancy.study.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ public class KnowledgeMileageActivity extends BaseView<KnowledgeMileagePresenter
     ImageView commonBack;
     private List<KnowledgeMileage> knowledgeMileages = new ArrayList<>();
     private KnowledgeMileageAdapter mAdapter;
+    private long knowledge_id;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_knowledge_mileage;
@@ -46,12 +49,12 @@ public class KnowledgeMileageActivity extends BaseView<KnowledgeMileagePresenter
         return new KnowledgeMileageContract.View<KnowledgeMileage>() {
             @Override
             public void onFail(int message) {
-
+                ToastUtils.showToast(getBaseContext(),message);
             }
 
             @Override
             public void onFinish() {
-
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -60,13 +63,15 @@ public class KnowledgeMileageActivity extends BaseView<KnowledgeMileagePresenter
             }
 
             @Override
-            public void onSuccess(KnowledgeMileage object) {
-
+            public void onSuccess(List<KnowledgeMileage> object) {
+                knowledgeMileages.clear();
+                knowledgeMileages.addAll(object);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onError(int message) {
-
+                ToastUtils.showToast(getBaseContext(),message);
             }
         };
     }
@@ -85,13 +90,11 @@ public class KnowledgeMileageActivity extends BaseView<KnowledgeMileagePresenter
 
     @Override
     public void initView(Bundle save) {
+        knowledge_id = getIntent().getLongExtra(ConstantsUtils.KNOWLEDGE_ID,0);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.white));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+            mPresenter.getContract().queryKnowledgeMileage(knowledge_id);
         });
         mAdapter = new KnowledgeMileageAdapter(getBaseContext(),knowledgeMileages);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
@@ -100,6 +103,6 @@ public class KnowledgeMileageActivity extends BaseView<KnowledgeMileagePresenter
 
     @Override
     public void initData() {
-
+        mPresenter.getContract().queryKnowledgeMileage(knowledge_id);
     }
 }

@@ -8,6 +8,8 @@ import com.vagrancy.study.model.knowledge.request.KnowLedgeRequest;
 import com.vagrancy.study.module.knowledge.activity.KnowledgeMileageActivity;
 import com.vagrancy.study.presenter.knowledge.KnowledgeMileagePresenter;
 
+import java.util.List;
+
 /**
  * @author Vagrancy
  * @date 2021/2/3
@@ -26,6 +28,11 @@ public class KnowledgeMileageModel extends BaseModel<KnowledgeMileagePresenter,K
     public KnowledgeMileageContract.Model<KnowledgeMileage> getContract() {
         return new KnowledgeMileageContract.Model<KnowledgeMileage>() {
 
+            @Override
+            public void queryKnowledgeMileage(long knowledge_id) {
+                List<KnowledgeMileage> knowledgeMileage = knowLedgeRequest.queryKnowledgeMileage(knowledge_id);
+                mPresenter.getContract().responseResult(knowledgeMileage);
+            }
         };
     }
 }

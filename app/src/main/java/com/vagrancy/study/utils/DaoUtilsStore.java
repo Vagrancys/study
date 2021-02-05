@@ -5,9 +5,11 @@ import com.vagrancy.study.db.DaoMaster;
 import com.vagrancy.study.db.KnowledgeAdvancedDao;
 import com.vagrancy.study.db.KnowledgeClassDao;
 import com.vagrancy.study.db.KnowledgeDao;
+import com.vagrancy.study.db.KnowledgeMileageDao;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.model.knowledge.entity.KnowledgeAdvanced;
 import com.vagrancy.study.model.knowledge.entity.KnowledgeClass;
+import com.vagrancy.study.model.knowledge.entity.KnowledgeMileage;
 
 /**
  * @author Vagrancy
@@ -21,6 +23,7 @@ public class DaoUtilsStore {
     private CommonDaoUtils<Knowledge> knowledgeUtils;
     private CommonDaoUtils<KnowledgeClass> knowledgeClassUtils;
     private CommonDaoUtils<KnowledgeAdvanced> knowledgeAdvancedUtils;
+    private CommonDaoUtils<KnowledgeMileage> knowledgeMileageUtils;
 
     public static DaoUtilsStore getInstance(){
         return instance;
@@ -37,6 +40,9 @@ public class DaoUtilsStore {
         //知识进阶操作
         KnowledgeAdvancedDao knowledgeAdvancedDao = mManager.getDaoSession().getKnowledgeAdvancedDao();
         knowledgeAdvancedUtils = new CommonDaoUtils<>(KnowledgeAdvanced.class,knowledgeAdvancedDao);
+        //知识里程操作
+        KnowledgeMileageDao knowledgeMileageDao = mManager.getDaoSession().getKnowledgeMileageDao();
+        knowledgeMileageUtils = new CommonDaoUtils<>(KnowledgeMileage.class,knowledgeMileageDao);
     }
 
     public CommonDaoUtils<Knowledge> getKnowledgeUtils() {
@@ -49,5 +55,9 @@ public class DaoUtilsStore {
 
     public CommonDaoUtils<KnowledgeAdvanced> getKnowledgeAdvancedUtils() {
         return knowledgeAdvancedUtils;
+    }
+
+    public CommonDaoUtils<KnowledgeMileage> getKnowledgeMileageUtils() {
+        return knowledgeMileageUtils;
     }
 }

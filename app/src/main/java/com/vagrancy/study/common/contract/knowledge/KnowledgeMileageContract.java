@@ -1,5 +1,7 @@
 package com.vagrancy.study.common.contract.knowledge;
 
+import java.util.List;
+
 /**
  * @author Vagrancy
  * @date 2021/2/3
@@ -10,6 +12,7 @@ package com.vagrancy.study.common.contract.knowledge;
 public interface KnowledgeMileageContract {
     //知识抽象model
     interface Model<T>{
+        void queryKnowledgeMileage(long knowledge_id);
     }
 
     //知识抽象view
@@ -21,13 +24,15 @@ public interface KnowledgeMileageContract {
 
         void onSuccess(int message);
 
-        void onSuccess(T object);
+        void onSuccess(List<T> object);
 
         void onError(int message);
     }
 
     //知识抽象presenter
     interface Presenter<T>{
-        void responseResult(T object);
+        void responseResult(List<T> object);
+
+        void queryKnowledgeMileage(long knowledge_id);
     }
 }
