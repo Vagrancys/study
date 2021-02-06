@@ -1,39 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <androidx.appcompat.widget.Toolbar
+    android:layout_height="match_parent">
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_above="@+id/common_tab"/>
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/common_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentInsetStart="@dimen/width_0dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/width_44dp">
-            <ImageView
-                android:id="@+id/knowledge_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/width_10dp"
-                android:src="@drawable/common_save_normal"
-                android:layout_toStartOf="@+id/knowledge_examine"
-                android:layout_marginRight="@dimen/width_10dp"
-                android:layout_toLeftOf="@+id/knowledge_examine" />
-            <ImageView
-                android:id="@+id/knowledge_examine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/width_10dp"
-                android:src="@drawable/common_examine_normal"
-                android:layout_marginRight="@dimen/width_10dp" />
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
-    <EditText
-        android:id="@+id/knowledge_edit"
-        style="@style/common_edit_view"/>
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/width_10dp"
+        app:tl_textsize="@dimen/size_18sp"
+        app:tl_textUnselectColor="@color/white_1"
+        app:tl_textSelectColor="@color/white"
+        app:tl_tab_space_equal="true"
+        app:tl_iconWidth="@dimen/width_25dp"
+        app:tl_iconHeight="@dimen/width_25dp"
+        app:tl_iconMargin="@dimen/width_1dp"/>
+</RelativeLayout>

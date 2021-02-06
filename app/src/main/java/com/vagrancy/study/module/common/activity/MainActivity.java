@@ -7,45 +7,48 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.viewpager.widget.ViewPager;
+
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.vagrancy.study.R;
 import com.vagrancy.study.common.base.BaseView;
 import com.vagrancy.study.common.base.BasePresenter;
 import com.vagrancy.study.common.contract.common.MainContract;
+import com.vagrancy.study.model.common.entity.Main;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
+import com.vagrancy.study.module.common.adapter.CommonFragmentAdapter;
 import com.vagrancy.study.module.knowledge.activity.KnowLedgeExamineActivity;
 import com.vagrancy.study.presenter.common.MainPresenter;
 import com.vagrancy.study.utils.CommonDaoUtils;
 import com.vagrancy.study.utils.DaoUtilsStore;
 import com.vagrancy.study.utils.ToastUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseView<MainPresenter, MainContract.View<Knowledge>> {
-    @BindView(R.id.knowledge_edit)
-    EditText knowledgeEdit;
+public class MainActivity extends BaseView<MainPresenter, MainContract.View<Main>> {
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
+    @BindView(R.id.common_tab)
+    CommonTabLayout commonTab;
+    private CommonFragmentAdapter mAdapter;
+    private String[] mTitle;
+    private int[] mUnSelect = {R.drawable.knowledge_un_select_normal,R.drawable.mine_un_select_normal};
+    private int[] mSelect = {R.drawable.knowledge_select_normal,R.drawable.mine_select_normal};
+    private ArrayList<CustomTabEntity> customTabs = new ArrayList<>();
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
 
     @Override
-    public MainContract.View<Knowledge> getContract() {
-        return new MainContract.View<Knowledge>() {
-            @Override
-            public void onFail(int message) {
-                ToastUtils.showToast(getBaseContext(),message);
-            }
-
-            @Override
-            public void onFinish() {
-            }
-
-            @Override
-            public void onSuccess(int message) {
-                ToastUtils.showToast(getBaseContext(),message);
-                knowledgeEdit.setText(null);
-            }
+    public MainContract.View<Main> getContract() {
+        return new MainContract.View<Main>() {
         };
     }
 
@@ -61,7 +64,52 @@ public class MainActivity extends BaseView<MainPresenter, MainContract.View<Know
 
     @Override
     public void initView(Bundle save) {
-    //1.分类 排序 升级
+        mTitle = getResources().getStringArray(R.array.tab_icon);
+        initEntity();
+        mAdapter = new CommonFragmentAdapter(getSupportFragmentManager(),mTitle.length);
+        viewPager.setAdapter(mAdapter);
+        viewPager.addOnPageChangeListener(new CommonPageChangeListener());
+        commonTab.setTabData(customTabs);
+        commonTab.setCurrentTab(0);
+        commonTab.setOnTabSelectListener(new CommonTabSelectListener());
+    }
+
+    //初始化icon
+    private void initEntity() {
+        for (int i = 0; i < mTitle.length; i++) {
+            TabCustomTabEntity mTab = new TabCustomTabEntity(mTitle[i],mSelect[i],mUnSelect[i]);
+            customTabs.add(mTab);
+        }
+    }
+
+    private class CommonTabSelectListener implements OnTabSelectListener {
+
+        @Override
+        public void onTabSelect(int position) {
+            viewPager.setCurrentItem(position);
+        }
+
+        @Override
+        public void onTabReselect(int position) {
+
+        }
+    }
+
+    private class CommonPageChangeListener implements ViewPager.OnPageChangeListener {
+        @Override
+        public void onPageScrolled(int i, float v, int i1) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            commonTab.setCurrentTab(position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+
+        }
     }
 
     @Override
@@ -69,33 +117,28 @@ public class MainActivity extends BaseView<MainPresenter, MainContract.View<Know
 
     }
 
-    @OnClick({R.id.knowledge_save,R.id.knowledge_examine})
-    public void onClicked(View view){
-        switch (view.getId()){
-            case R.id.knowledge_save:
-                knowledgeSave();
-                break;
-            case R.id.knowledge_examine:
-                OpenActivity.init(MainActivity.this)
-                        .putActivity(KnowLedgeExamineActivity.class)
-                        .launchActivity();
-                break;
+    private class TabCustomTabEntity implements CustomTabEntity{
+        private String title;
+        private int selected;
+        private int unSelected;
+        public TabCustomTabEntity(String title,int selected,int unSelected){
+            this.title = title;
+            this.selected = selected;
+            this.unSelected = unSelected;
         }
-    }
+        @Override
+        public String getTabTitle() {
+            return this.title;
+        }
 
-    /**
-     * 保存知识
-     */
-    private void knowledgeSave(){
-        String save = knowledgeEdit.getText().toString();
-        if(TextUtils.isEmpty(save)){
-            Toast.makeText(getBaseContext(),R.string.knowledge_save_empty,Toast.LENGTH_SHORT).show();
-            return;
+        @Override
+        public int getTabSelectedIcon() {
+            return this.selected;
         }
-        Knowledge knowledge = new Knowledge();
-        knowledge.setKnowledge_content(save);
-        knowledge.setKnowledge_state(1);
-        knowledge.setKnowledge_save_time(System.currentTimeMillis());
-        mPresenter.getContract().insertKnowledge(knowledge);
+
+        @Override
+        public int getTabUnselectedIcon() {
+            return this.unSelected;
+        }
     }
 }

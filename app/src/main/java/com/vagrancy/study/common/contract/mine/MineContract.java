@@ -1,13 +1,13 @@
-package com.vagrancy.study.common.contract.common;
+package com.vagrancy.study.common.contract.mine;
 
 /**
  * @author Vagrancy
- * @date 2021/1/24
+ * @date 2021/2/6
  * Github: https:github.com/Vagrancys
  * Email:18050829067@163.com
- * Description: 首页协议
+ * Description: 中心协议
  */
-public interface MainContract {
+public interface MineContract {
     //知识抽象model
     interface Model<T>{
     }

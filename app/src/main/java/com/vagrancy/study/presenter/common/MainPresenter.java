@@ -6,6 +6,7 @@ import com.vagrancy.study.R;
 import com.vagrancy.study.common.base.BasePresenter;
 import com.vagrancy.study.common.contract.common.MainContract;
 import com.vagrancy.study.model.common.MainModel;
+import com.vagrancy.study.model.common.entity.Main;
 import com.vagrancy.study.model.knowledge.entity.Knowledge;
 import com.vagrancy.study.module.common.activity.MainActivity;
 
@@ -16,25 +17,10 @@ import com.vagrancy.study.module.common.activity.MainActivity;
  * Email:18050829067@163.com
  * Description: 首页presenter
  */
-public class MainPresenter extends BasePresenter<MainActivity, MainModel, MainContract.Presenter<Knowledge>> {
+public class MainPresenter extends BasePresenter<MainActivity, MainModel, MainContract.Presenter<Main>> {
     @Override
-    public MainContract.Presenter<Knowledge> getContract() {
-        return new MainContract.Presenter<Knowledge>() {
-
-            @Override
-            public void insertKnowledge(Knowledge object) {
-                getModel().getContract().insertKnowledge(object);
-            }
-
-            @Override
-            public void responseResult(boolean result) {
-                if(result){
-                    getView().getContract().onSuccess( R.string.knowledge_save_success);
-                }else{
-                    getView().getContract().onFail(R.string.knowledge_save_fail);
-                }
-                getView().getContract().onFinish();
-            }
+    public MainContract.Presenter<Main> getContract() {
+        return new MainContract.Presenter<Main>() {
         };
     }
 

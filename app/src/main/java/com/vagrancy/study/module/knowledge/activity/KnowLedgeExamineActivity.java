@@ -139,7 +139,6 @@ public class KnowLedgeExamineActivity extends BaseView<KnowledgeExaminePresenter
             }
         });
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.white));
-        //TODO  4.等级 5.说明 6.进阶 7.分类 8.搜索
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(true);
             mPresenter.getContract().queryKnowledgeAll();

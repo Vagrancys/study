@@ -33,6 +33,7 @@ public class KnowLedgeRequest {
         knowledgeUtils = DaoUtilsStore.getInstance().getKnowledgeUtils();
         knowledgeClassUtils = DaoUtilsStore.getInstance().getKnowledgeClassUtils();
         knowledgeAdvancedUtils = DaoUtilsStore.getInstance().getKnowledgeAdvancedUtils();
+        knowledgeMileageUtils = DaoUtilsStore.getInstance().getKnowledgeMileageUtils();
     }
 
     public static KnowLedgeRequest getInstance(){

@@ -29,5 +29,6 @@
             android:theme="@style/knowledge_class_dialog"/>
         <activity android:name=".module.knowledge.activity.KnowledgeAdvancedActivity"
             android:theme="@style/knowledge_class_dialog"/>
+        <activity android:name=".module.knowledge.activity.KnowledgeMileageActivity"/>
     </application>
 </manifest>
