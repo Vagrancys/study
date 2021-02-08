@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/width_10dp"
+    android:gravity="center">
+    <ImageView
+        android:id="@+id/mine_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/width_10dp"/>
+    <TextView
+        android:id="@+id/mine_icon"
+        style="@style/common_text_view"/>
+</LinearLayout>

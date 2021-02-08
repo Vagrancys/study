@@ -71,4 +71,7 @@
     <!--框架输出-->
     <string name="setting_presenter_null">presenter未初始化!</string>
     <string name="setting_view_null">view未初始化!</string>
+
+    <!--个人中心-->
+    <string name="common_mine_title">数据中心</string>
 </resources>
