@@ -53,6 +53,7 @@ public class MineFragment extends BaseFragmentView<MinePresenter,MineContract.Vi
                 switch (position){
                     case 0:
                         //统计
+
                         break;
                     case 1:
                         break;
