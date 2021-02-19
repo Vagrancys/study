@@ -17,7 +17,7 @@ public class DataTime {
     //开始努力次数
     private long start_time;
     //努力天数
-    private int data_count;
+    private int day_count;
     //最新时间
     private long new_time;
     //达成次数

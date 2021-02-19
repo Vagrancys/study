@@ -56,4 +56,7 @@ dependencies {
     //FlycoTabLayout
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
     implementation 'com.nineoldandroids:library:2.4.0'
+
+    //calendarview
+    implementation 'com.haibin:calendarview:3.2.9'
 }
